@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from __future__ import annotations
+
 """
 EcoWater HydroLink API Interface for Home Assistant
 
@@ -39,7 +41,6 @@ Changelog:
 
 License: MIT
 See LICENSE file in the project root for full license information.
-"""
 
 Typical usage example:
 
@@ -47,9 +48,6 @@ Typical usage example:
     api.login()
     data = api.get_data()
 """
-
-import logging
-from __future__ import annotations
 
 from dataclasses import dataclass
 from typing import Any, Dict, List, Optional
@@ -73,20 +71,14 @@ class Device:
     properties: Dict[str, Any]
 
 class HydroLinkApi:
-    """Interface to the HydroLink API.
-    
-    This class provides methods to authenticate with the HydroLink service
-    and retrieve data from connected water softener devices.
-    
-    Attributes:
-        email: The user's HydroLink account email.
-        password: The user's HydroLink account password.
-        auth_cookie: Authentication cookie from successful login.
-        ws_message_count: Counter for WebSocket messages received.
-        waiting_for_ws_thread_to_end: Flag for WebSocket thread status.
-        ws_uri: WebSocket connection URI.
-        BASE_URL: Base URL for the HydroLink API.
-        WS_BASE_URL: Base URL for WebSocket connections.
+    """HydroLink API interface.
+
+    Handles authentication and data retrieval from HydroLink water softeners.
+    Provides real-time updates through WebSocket connections.
+
+    Parameters:
+        email (str): HydroLink account email
+        password (str): HydroLink account password
     """
 
     BASE_URL = "https://api.hydrolinkhome.com/v1"
@@ -96,8 +88,8 @@ class HydroLinkApi:
         """Initialize the API.
 
         Args:
-            email: The user's HydroLink email.
-            password: The user's HydroLink password.
+            email: The users HydroLink email
+            password: The users HydroLink password
         """
         self.email: str = email
         self.password: str = password
@@ -375,11 +367,6 @@ class HydroLinkApi:
         except requests.RequestException as err:
             raise CannotConnect(f"Error fetching device data: {err}") from err
 
-
-class CannotConnect(Exception):
-    """Error to indicate we cannot connect."""
-
-
     def trigger_regeneration(self, device_id: str) -> bool:
         """Trigger a manual regeneration for a specific device.
         
@@ -416,6 +403,10 @@ class CannotConnect(Exception):
             raise CannotConnect("Failed to connect to HydroLink") from None
         except requests.RequestException as err:
             raise CannotConnect(f"Error triggering regeneration: {err}") from err
+
+
+class CannotConnect(Exception):
+    """Error to indicate we cannot connect."""
 
 
 class InvalidAuth(Exception):
