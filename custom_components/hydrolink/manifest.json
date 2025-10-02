@@ -1,5 +1,5 @@
 {
-  "domain": "hydrolink",
+  "domain  "version": "0.3.2",: "hydrolink",
   "name": "HydroLink",
   "config_flow": true,
   "documentation": "https://github.com/GrumpyTanker/hydrolink-hacs",

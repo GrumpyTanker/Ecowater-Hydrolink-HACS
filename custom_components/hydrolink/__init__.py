@@ -28,10 +28,18 @@ from __future__ import annotations
 
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
+from homeassistant.const import Platform
 
-from .const import DOMAIN, PLATFORMS
+from .const import DOMAIN
 from .coordinator import HydroLinkDataUpdateCoordinator
 from .services import async_setup_services
+
+PLATFORMS = [Platform.SENSOR]
+
+async def async_setup(hass: HomeAssistant, config: dict) -> bool:
+    """Set up the HydroLink component."""
+    hass.data.setdefault(DOMAIN, {})
+    return True
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:

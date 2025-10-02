@@ -18,6 +18,10 @@ Changelog:
   * Added service constants
   * Added platform definitions
   * Improved organization
+"""
+
+DOMAIN = "hydrolink"
+DEFAULT_UPDATE_INTERVAL = 300  # 5 minutes in seconds
 
 License: Apache License 2.0
 See LICENSE file in the project root for full license information.
