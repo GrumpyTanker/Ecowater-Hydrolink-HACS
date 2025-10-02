@@ -3,8 +3,8 @@
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg)](https://github.com/hacs/integration)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Validate](https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS/workflows/Validate/badge.svg)](https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS/actions)
-[![Maintainability](https://api.codeclimate.com/v1/badges/YOUR_REPO_ID/maintainability)](https://codeclimate.com/github/GrumpyTanker/Ecowater-Hydrolink-HACS)
-[![Coverage](https://codecov.io/gh/GrumpyTanker/Ecowater-Hydrolink-HACS/branch/main/graph/badge.svg)](https://codecov.io/gh/GrumpyTanker/Ecowater-Hydrolink-HACS)
+[![HA Core Version](https://img.shields.io/badge/Home%20Assistant-2024.10.0-blue.svg)](https://www.home-assistant.io)
+[![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
 A Home Assistant integration for EcoWater's HydroLink connected water softeners. Monitor your water softener's performance, water usage, salt levels, and more directly in Home Assistant.
 
@@ -30,13 +30,11 @@ This integration is a HACS-compatible adaptation of the original [Hydrolink-Home
 2. Search for "EcoWater HydroLink" in HACS
 3. Click Install
 4. Restart Home Assistant
-5. Add the integration via the Home Assistant UI (Configuration -> Devices & Services -> + Add Integration)
-6. Search for "EcoWater HydroLink"
-7. Enter your HydroLink credentials when prompted
-6. Select "Integration" as the category
-7. Click "Add"
-8. Find "EcoWater HydroLink" in the integration list and install it
-9. Restart Home Assistant
+5. Add the integration via the Home Assistant UI:
+   - Go to Settings → Devices & Services
+   - Click the "+ ADD INTEGRATION" button
+   - Search for "EcoWater HydroLink"
+6. Enter your HydroLink credentials when prompted
 
 ### Manual Installation
 1. Download the latest release from the GitHub repository
@@ -128,32 +126,15 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Version History
 
-### Version 0.3.1 (October 2, 2025)
-- Fixed config flow error handling
-- Improved exception handling and propagation
-- Enhanced test infrastructure reliability
-- Added comprehensive error state management
-- Fixed async executor job handling
-
-### Version 0.3.0
-- Added comprehensive documentation of all sensors
-- Added diagnostic sensors section
-- Improved data cleaning and organization
-- Enhanced example data with complete attribute descriptions
-- Added discovery tools for development
-
-### Version 0.2.0
-- Added WebSocket support for real-time updates
-- Added HACS compatibility
-- Improved error handling and logging
-- Added type hints and dataclass models
-- Enhanced data organization and cleaning
-- Added example data for development
-
-### Version 0.1.0
-- Initial release based on Hydrolink-Home-Status
-- Basic API implementation
-- Device data retrieval
+### Version 1.0.0 (October 2, 2025)
+- Initial HACS-compatible release
+- Complete restructure for HACS compatibility
+- Updated to MIT license
+- Added comprehensive testing setup
+- Improved documentation and translations
+- Added proper branding assets
+- Configured CI/CD with GitHub Actions
+- Updated minimum Home Assistant version to 2024.10.0
 
 ## License
 
