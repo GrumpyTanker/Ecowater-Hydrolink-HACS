@@ -16,6 +16,5 @@
   "integration_type": "hub",
   "quality_scale": "silver",
   "dependencies": [],
-  "after_dependencies": [],
-  "min_homeassistant_version": "2024.10.0"
+  "after_dependencies": []
 }
