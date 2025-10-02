@@ -1,0 +1,16 @@
+{
+  "domain": "hydrolink",
+  "name": "HydroLink",
+  "config_flow": true,
+  "documentation": "https://github.com/GrumpyTanker/hydrolink-hacs",
+  "issue_tracker": "https://github.com/GrumpyTanker/hydrolink-hacs/issues",
+  "requirements": [
+    "requests",
+    "websocket-client"
+  ],
+  "version": "0.1.0",
+  "codeowners": [
+    "@GrumpyTanker"
+  ],
+  "iot_class": "cloud_polling"
+}
