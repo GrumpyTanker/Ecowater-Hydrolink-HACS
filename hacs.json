@@ -1,0 +1,7 @@
+{
+    "name": "EcoWater HydroLink",
+    "render_readme": true,
+    "domains": ["sensor"],
+    "country": ["US", "CA"],
+    "homeassistant": "2023.8.0"
+}

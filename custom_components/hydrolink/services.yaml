@@ -1,0 +1,15 @@
+trigger_regeneration:
+  name: Trigger Regeneration
+  description: Trigger a manual regeneration cycle for a specific water softener.
+  target:
+    entity:
+      integration: hydrolink
+      domain: sensor
+  fields:
+    device_id:
+      name: Device
+      description: The ID of the water softener device to regenerate.
+      required: true
+      selector:
+        device:
+          integration: hydrolink

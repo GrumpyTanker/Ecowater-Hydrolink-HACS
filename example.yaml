@@ -1,0 +1,10 @@
+default_config:
+
+# Load the HydroLink integration
+hydrolink:
+
+# Optional: Enable debug logging
+logger:
+  default: info
+  logs:
+    custom_components.hydrolink: debug

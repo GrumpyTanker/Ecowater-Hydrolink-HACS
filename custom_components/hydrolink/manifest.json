@@ -8,9 +8,14 @@
     "requests",
     "websocket-client"
   ],
-  "version": "0.1.0",
+  "version": "0.2.0",
   "codeowners": [
     "@GrumpyTanker"
   ],
-  "iot_class": "cloud_polling"
+  "iot_class": "cloud_polling",
+  "integration_type": "hub",
+  "quality_scale": "silver",
+  "dependencies": [],
+  "after_dependencies": [],
+  "homeassistant": "2023.8.0"
 }

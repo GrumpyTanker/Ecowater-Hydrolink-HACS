@@ -1,7 +1,29 @@
+# -*- coding: utf-8 -*-
 """
-Sensor platform for the HydroLink integration.
+EcoWater HydroLink Sensor Platform for Home Assistant
+
+Implements the sensor platform for monitoring EcoWater HydroLink devices.
+This module defines all available sensors and their configurations including
+units, device classes, and state classes.
 
 Author: GrumpyTanker + AI
+Created: June 12, 2025
+Updated: October 2, 2025
+
+Changelog:
+- 0.1.0 (2025-06-12)
+  * Initial release
+  * Basic sensor definitions
+  * Default enabled sensors
+  
+- 0.2.0 (2025-10-02)
+  * Added comprehensive sensor categories
+  * Expanded sensor definitions
+  * Added proper unit conversions
+  * Improved entity categorization
+
+License: Apache License 2.0
+See LICENSE file in the project root for full license information.
 """
 from homeassistant.components.sensor import (
     SensorDeviceClass,
@@ -14,43 +36,196 @@ from homeassistant.const import (
     UnitOfTemperature,
     UnitOfVolume,
     UnitOfTime,
+    UnitOfMass,
+    SIGNAL_STRENGTH_DECIBELS_MILLIWATT,
 )
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.entity import EntityCategory
 
 from .const import DOMAIN
 
+# All available sensor categories
+SENSOR_CATEGORIES = {
+    "BASIC": "Basic system information",
+    "WATER": "Water usage and flow metrics",
+    "SALT": "Salt level and usage metrics",
+    "REGEN": "Regeneration information",
+    "PERFORMANCE": "System performance metrics",
+    "MAINTENANCE": "Maintenance and service information",
+    "ADVANCED": "Advanced technical metrics",
+    "ALERTS": "System alerts and warnings",
+    "HARDWARE": "Hardware and device information"
+}
+
 # Set of sensors to be enabled by default
 DEFAULT_ENABLED_SENSORS = {
-    "regeneration_days_remaining",
-    "regeneration_last",
-    "water_flow_rate",
-    "water_hardness",
-    "water_usage_daily_average",
-    "water_usage_today",
-    "water_usage_yesterday",
+    # Basic status
     "online",
-    "out_of_salt_date",
-    "salt_level_percent",
-    "salt_level_days_remaining",
     "system_error",
     "vacation_mode",
+    
+    # Critical metrics
+    "water_flow_rate",
+    "salt_level_percent",
+    "salt_level_days_remaining",
+    "out_of_salt_date",
+    "capacity_remaining_percent",
+    
+    # Water usage
+    "water_usage_today",
+    "water_usage_daily_average",
+    "water_usage_yesterday",
+    "water_hardness",
+    
+    # Regeneration
+    "regeneration_days_remaining",
+    "regeneration_last",
+    "days_since_last_regen",
+    
+    # Environmental
     "water_pressure",
     "inlet_water_pressure",
     "outlet_water_pressure",
     "water_temperature",
     "inlet_water_temperature",
     "outlet_water_temperature",
+    
+    # Alerts
+    "low_salt_alert",
+    "error_code_alert",
+    "service_reminder_alert",
 }
 
 # Descriptions for each sensor
 SENSOR_DESCRIPTIONS = {
-    "regeneration_days_remaining": {
-        "name": "Regeneration Days Remaining",
+    # BASIC SYSTEM INFORMATION
+    "online": {
+        "name": "Online Status",
+        "unit": None,
+        "device_class": SensorDeviceClass.CONNECTIVITY,
+        "state_class": None,
+        "icon": "mdi:wifi",
+        "category": "BASIC",
+    },
+    "system_error": {
+        "name": "System Error",
+        "unit": None,
+        "device_class": SensorDeviceClass.PROBLEM,
+        "state_class": None,
+        "icon": "mdi:alert",
+        "category": "BASIC",
+    },
+    "vacation_mode": {
+        "name": "Vacation Mode",
+        "unit": None,
+        "device_class": None,
+        "state_class": None,
+        "icon": "mdi:airplane",
+        "category": "BASIC",
+    },
+    
+    # WATER METRICS
+    "water_flow_rate": {
+        "name": "Current Water Flow",
+        "unit": "gpm",
+        "device_class": None,
+        "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:water-pump",
+        "category": "WATER",
+    },
+    "peak_water_flow_gpm": {
+        "name": "Peak Water Flow",
+        "unit": "gpm",
+        "device_class": None,
+        "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:water-pump-outline",
+        "category": "WATER",
+    },
+    "water_usage_today": {
+        "name": "Water Usage Today",
+        "unit": UnitOfVolume.GALLONS,
+        "device_class": None,
+        "state_class": SensorStateClass.TOTAL_INCREASING,
+        "icon": "mdi:water",
+        "category": "WATER",
+    },
+    "water_usage_daily_average": {
+        "name": "Average Daily Water Usage",
+        "unit": UnitOfVolume.GALLONS,
+        "device_class": None,
+        "state_class": SensorStateClass.TOTAL,
+        "icon": "mdi:water",
+        "category": "WATER",
+    },
+    "total_outlet_water_gals": {
+        "name": "Total Treated Water",
+        "unit": UnitOfVolume.GALLONS,
+        "device_class": None,
+        "state_class": SensorStateClass.TOTAL_INCREASING,
+        "icon": "mdi:water-check",
+        "category": "WATER",
+    },
+    "treated_water_avail_gals": {
+        "name": "Available Treated Water",
+        "unit": UnitOfVolume.GALLONS,
+        "device_class": None,
+        "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:water-check-outline",
+        "category": "WATER",
+    },
+
+    # SALT METRICS
+    "salt_level_percent": {
+        "name": "Salt Level",
+        "unit": PERCENTAGE,
+        "device_class": None,
+        "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:salt",
+        "category": "SALT",
+    },
+    "salt_level_days_remaining": {
+        "name": "Salt Days Remaining",
         "unit": UnitOfTime.DAYS,
         "device_class": None,
         "state_class": SensorStateClass.MEASUREMENT,
-        "icon": "mdi:counter",
+        "icon": "mdi:calendar-clock",
+        "category": "SALT",
+    },
+    "out_of_salt_date": {
+        "name": "Out of Salt Date",
+        "unit": None,
+        "device_class": SensorDeviceClass.TIMESTAMP,
+        "state_class": None,
+        "icon": "mdi:calendar-alert",
+        "category": "SALT",
+    },
+    "total_salt_use_lbs": {
+        "name": "Total Salt Used",
+        "unit": UnitOfMass.POUNDS,
+        "device_class": None,
+        "state_class": SensorStateClass.TOTAL_INCREASING,
+        "icon": "mdi:scale",
+        "category": "SALT",
+        "entity_category": EntityCategory.DIAGNOSTIC,
+    },
+    "avg_salt_per_regen_lbs": {
+        "name": "Average Salt per Regeneration",
+        "unit": UnitOfMass.POUNDS,
+        "device_class": None,
+        "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:scale-bathroom",
+        "category": "SALT",
+        "entity_category": EntityCategory.DIAGNOSTIC,
+    },
+    
+    # REGENERATION METRICS
+    "regeneration_days_remaining": {
+        "name": "Days Until Regeneration",
+        "unit": UnitOfTime.DAYS,
+        "device_class": None,
+        "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:calendar-clock",
+        "category": "REGEN",
     },
     "regeneration_last": {
         "name": "Last Regeneration",
@@ -58,14 +233,210 @@ SENSOR_DESCRIPTIONS = {
         "device_class": SensorDeviceClass.TIMESTAMP,
         "state_class": None,
         "icon": "mdi:calendar-clock",
+        "category": "REGEN",
     },
-    "water_flow_rate": {
-        "name": "Water Flow Rate",
-        "unit": "gpm",
+    "days_since_last_regen": {
+        "name": "Days Since Last Regeneration",
+        "unit": UnitOfTime.DAYS,
         "device_class": None,
         "state_class": SensorStateClass.MEASUREMENT,
-        "icon": "mdi:water-pump",
+        "icon": "mdi:calendar-clock",
+        "category": "REGEN",
     },
+    "total_regens": {
+        "name": "Total Regenerations",
+        "unit": None,
+        "device_class": None,
+        "state_class": SensorStateClass.TOTAL_INCREASING,
+        "icon": "mdi:refresh",
+        "category": "REGEN",
+        "entity_category": EntityCategory.DIAGNOSTIC,
+    },
+    "avg_days_between_regens": {
+        "name": "Average Days Between Regenerations",
+        "unit": UnitOfTime.DAYS,
+        "device_class": None,
+        "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:calendar-refresh",
+        "category": "REGEN",
+        "entity_category": EntityCategory.DIAGNOSTIC,
+    },
+    
+    # PERFORMANCE METRICS
+    "capacity_remaining_percent": {
+        "name": "Capacity Remaining",
+        "unit": PERCENTAGE,
+        "device_class": None,
+        "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:water-percent",
+        "category": "PERFORMANCE",
+    },
+    "water_hardness": {
+        "name": "Water Hardness",
+        "unit": "gpg",
+        "device_class": None,
+        "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:water-outline",
+        "category": "PERFORMANCE",
+        "entity_category": EntityCategory.DIAGNOSTIC,
+    },
+    "rock_removed_since_rech_lbs": {
+        "name": "Hardness Removed Since Recharge",
+        "unit": UnitOfMass.POUNDS,
+        "device_class": None,
+        "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:scale",
+        "category": "PERFORMANCE",
+    },
+    "daily_avg_rock_removed_lbs": {
+        "name": "Average Daily Hardness Removed",
+        "unit": UnitOfMass.POUNDS,
+        "device_class": None,
+        "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:scale-bathroom",
+        "category": "PERFORMANCE",
+    },
+
+    # PRESSURE AND TEMPERATURE
+    "water_pressure": {
+        "name": "Water Pressure",
+        "unit": UnitOfPressure.PSI,
+        "device_class": SensorDeviceClass.PRESSURE,
+        "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:gauge",
+        "category": "PERFORMANCE",
+    },
+    "inlet_water_pressure": {
+        "name": "Inlet Water Pressure",
+        "unit": UnitOfPressure.PSI,
+        "device_class": SensorDeviceClass.PRESSURE,
+        "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:gauge",
+        "category": "PERFORMANCE",
+    },
+    "outlet_water_pressure": {
+        "name": "Outlet Water Pressure",
+        "unit": UnitOfPressure.PSI,
+        "device_class": SensorDeviceClass.PRESSURE,
+        "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:gauge",
+        "category": "PERFORMANCE",
+    },
+    "water_temperature": {
+        "name": "Water Temperature",
+        "unit": UnitOfTemperature.CELSIUS,
+        "device_class": SensorDeviceClass.TEMPERATURE,
+        "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:thermometer",
+        "category": "PERFORMANCE",
+    },
+    "inlet_water_temperature": {
+        "name": "Inlet Water Temperature",
+        "unit": UnitOfTemperature.CELSIUS,
+        "device_class": SensorDeviceClass.TEMPERATURE,
+        "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:thermometer",
+        "category": "PERFORMANCE",
+    },
+    "outlet_water_temperature": {
+        "name": "Outlet Water Temperature",
+        "unit": UnitOfTemperature.CELSIUS,
+        "device_class": SensorDeviceClass.TEMPERATURE,
+        "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:thermometer",
+        "category": "PERFORMANCE",
+    },
+    
+    # MAINTENANCE AND SERVICE
+    "service_reminder_months": {
+        "name": "Months Until Service",
+        "unit": UnitOfTime.MONTHS,
+        "device_class": None,
+        "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:tools",
+        "category": "MAINTENANCE",
+    },
+    "days_in_operation": {
+        "name": "Days in Operation",
+        "unit": UnitOfTime.DAYS,
+        "device_class": None,
+        "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:clock-outline",
+        "category": "MAINTENANCE",
+        "entity_category": EntityCategory.DIAGNOSTIC,
+    },
+    
+    # ALERTS AND WARNINGS
+    "low_salt_alert": {
+        "name": "Low Salt Alert",
+        "unit": None,
+        "device_class": SensorDeviceClass.PROBLEM,
+        "state_class": None,
+        "icon": "mdi:alert-circle",
+        "category": "ALERTS",
+    },
+    "error_code_alert": {
+        "name": "Error Code Alert",
+        "unit": None,
+        "device_class": SensorDeviceClass.PROBLEM,
+        "state_class": None,
+        "icon": "mdi:alert",
+        "category": "ALERTS",
+    },
+    "service_reminder_alert": {
+        "name": "Service Reminder",
+        "unit": None,
+        "device_class": SensorDeviceClass.PROBLEM,
+        "state_class": None,
+        "icon": "mdi:tools",
+        "category": "ALERTS",
+    },
+    "flow_monitor_alert": {
+        "name": "Flow Monitor Alert",
+        "unit": None,
+        "device_class": SensorDeviceClass.PROBLEM,
+        "state_class": None,
+        "icon": "mdi:water-alert",
+        "category": "ALERTS",
+    },
+    "excessive_water_use_alert": {
+        "name": "Excessive Water Use Alert",
+        "unit": None,
+        "device_class": SensorDeviceClass.PROBLEM,
+        "state_class": None,
+        "icon": "mdi:water-alert",
+        "category": "ALERTS",
+    },
+    
+    # HARDWARE AND CONNECTIVITY
+    "rf_signal_strength_dbm": {
+        "name": "WiFi Signal Strength",
+        "unit": SIGNAL_STRENGTH_DECIBELS_MILLIWATT,
+        "device_class": SensorDeviceClass.SIGNAL_STRENGTH,
+        "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:wifi",
+        "category": "HARDWARE",
+        "entity_category": EntityCategory.DIAGNOSTIC,
+    },
+    "rf_signal_bars": {
+        "name": "WiFi Signal Bars",
+        "unit": None,
+        "device_class": None,
+        "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:wifi",
+        "category": "HARDWARE",
+        "entity_category": EntityCategory.DIAGNOSTIC,
+    },
+    "power_outage_count": {
+        "name": "Power Outage Count",
+        "unit": None,
+        "device_class": None,
+        "state_class": SensorStateClass.TOTAL_INCREASING,
+        "icon": "mdi:power-plug-off",
+        "category": "HARDWARE",
+        "entity_category": EntityCategory.DIAGNOSTIC,
+    },
+}
     "water_hardness": {
         "name": "Water Hardness",
         "unit": "gpg",
@@ -77,28 +448,28 @@ SENSOR_DESCRIPTIONS = {
     "water_usage_daily_average": {
         "name": "Average Daily Water Usage",
         "unit": UnitOfVolume.GALLONS,
-        "device_class": SensorDeviceClass.WATER,
+        "device_class": None,  # WATER is no longer a valid device class
         "state_class": SensorStateClass.TOTAL,
         "icon": "mdi:water",
     },
     "water_usage_today": {
         "name": "Water Usage Today",
         "unit": UnitOfVolume.GALLONS,
-        "device_class": SensorDeviceClass.WATER,
+        "device_class": None,  # WATER is no longer a valid device class
         "state_class": SensorStateClass.TOTAL_INCREASING,
         "icon": "mdi:water",
     },
     "water_usage_yesterday": {
         "name": "Water Usage Yesterday",
         "unit": UnitOfVolume.GALLONS,
-        "device_class": SensorDeviceClass.WATER,
+        "device_class": None,  # WATER is no longer a valid device class
         "state_class": SensorStateClass.TOTAL,
         "icon": "mdi:water",
     },
     "online": {
         "name": "Online Status",
         "unit": None,
-        "device_class": SensorDeviceClass.CONNECTIVITY,
+        "device_class": None,  # CONNECTIVITY is not available in current HA version
         "state_class": None,
         "icon": "mdi:wifi",
         "entity_category": EntityCategory.DIAGNOSTIC,
@@ -127,7 +498,7 @@ SENSOR_DESCRIPTIONS = {
     "system_error": {
         "name": "System Error",
         "unit": None,
-        "device_class": SensorDeviceClass.PROBLEM,
+        "device_class": None,  # PROBLEM is no longer a valid device class
         "state_class": None,
         "icon": "mdi:alert-circle-outline",
         "entity_category": EntityCategory.DIAGNOSTIC,

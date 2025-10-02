@@ -1,0 +1,62 @@
+"""Unit tests for the HydroLink integration."""
+from unittest.mock import Mock, patch
+import pytest
+from homeassistant.core import HomeAssistant
+from homeassistant.config_entries import ConfigEntry
+from custom_components.hydrolink import async_setup_entry, async_unload_entry
+from custom_components.hydrolink.const import DOMAIN
+
+# Test data
+MOCK_CONFIG = {
+    "email": "test@example.com",
+    "password": "password123"
+}
+
+@pytest.fixture
+def mock_config_entry() -> ConfigEntry:
+    """Create a mock config entry."""
+    return ConfigEntry(
+        version=1,
+        minor_version=1,
+        domain=DOMAIN,
+        title="HydroLink Test",
+        data=MOCK_CONFIG,
+        source="user",
+        options={},
+        unique_id="test@example.com",
+        discovery_keys=None
+    )
+
+@pytest.fixture
+def mock_coordinator() -> Mock:
+    """Create a mock data update coordinator."""
+    coordinator = Mock()
+    coordinator.async_setup = Mock(return_value=True)
+    coordinator.async_config_entry_first_refresh = Mock()
+    return coordinator
+
+@pytest.mark.asyncio
+async def test_setup_entry(hass: HomeAssistant, mock_config_entry: ConfigEntry, mock_coordinator: Mock):
+    """Test setting up the integration."""
+    hass = create_mock_hass()
+    
+    with patch("custom_components.hydrolink.coordinator.HydroLinkDataUpdateCoordinator", return_value=mock_coordinator):
+        result = await async_setup_entry(hass, mock_config_entry)
+        
+    assert result is True
+    assert DOMAIN in hass.data
+    assert mock_config_entry.entry_id in hass.data[DOMAIN]
+    assert hass.data[DOMAIN][mock_config_entry.entry_id] == mock_coordinator
+    hass.config_entries.async_forward_entry_setups.assert_called_once_with(mock_config_entry, PLATFORMS)
+
+@pytest.mark.asyncio
+async def test_unload_entry(hass: HomeAssistant, mock_config_entry: ConfigEntry, mock_coordinator: Mock):
+    """Test unloading the integration."""
+    hass = create_mock_hass()
+    hass.data[DOMAIN] = {
+        mock_config_entry.entry_id: mock_coordinator
+    }
+    
+    result = await async_unload_entry(hass, mock_config_entry)
+    assert result is True
+    assert mock_config_entry.entry_id not in hass.data[DOMAIN]
