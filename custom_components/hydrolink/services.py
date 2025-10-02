@@ -21,6 +21,8 @@ Changelog:
 
 License: Apache License 2.0
 See LICENSE file in the project root for full license information.
+"""
+
 from typing import Dict, Any
 import voluptuous as vol
 from homeassistant.core import HomeAssistant, ServiceCall
