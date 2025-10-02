@@ -19,13 +19,23 @@
             "already_configured": "This HydroLink account is already configured."
         }
     },
-    "state": {
-        "unknown": "Unknown",
-        "online": "Online",
-        "offline": "Offline",
-        "regenerating": "Regenerating"
-    },
     "entity": {
+        "binary_sensor": {
+            "connection_status": {
+                "name": "Connection Status",
+                "state": {
+                    "on": "Online",
+                    "off": "Offline"
+                }
+            },
+            "regeneration_status": {
+                "name": "Regeneration Status",
+                "state": {
+                    "on": "Regenerating",
+                    "off": "Idle"
+                }
+            }
+        },
         "sensor": {
             "salt_level": {
                 "name": "Salt Level",

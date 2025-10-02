@@ -26,11 +26,17 @@ See LICENSE file in the project root for full license information.
 """
 from __future__ import annotations
 
+import voluptuous as vol
+
 from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.const import Platform
+from homeassistant.helpers import config_validation as cv
 
 from .const import DOMAIN
+
+# Since we use config flow, this is an empty schema
+CONFIG_SCHEMA = vol.Schema({DOMAIN: vol.Schema({})}, extra=vol.ALLOW_EXTRA)
 from .coordinator import HydroLinkDataUpdateCoordinator
 from .services import async_setup_services
 

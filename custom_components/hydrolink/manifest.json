@@ -4,7 +4,6 @@
   "config_flow": true,
   "documentation": "https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS",
   "issue_tracker": "https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS/issues",
-  "icon": "brands/icon.svg",
   "requirements": [
     "requests",
     "websocket-client"
