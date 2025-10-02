@@ -13,15 +13,16 @@ This integration is a HACS-compatible adaptation of the original [Hydrolink-Home
 ## Features
 
 - Real-time monitoring of your EcoWater water softener
-- Automatic data updates every 5 minutes
-- Multiple sensors for comprehensive monitoring:
-  - Water Usage (Today, Yesterday, Average)
-  - Salt Level and Days Remaining
-  - Water Pressure (Inlet/Outlet)
-  - Water Temperature (Inlet/Outlet)
-  - Regeneration Status and Schedule
-  - System Errors and Connectivity
-  - Vacation Mode Status
+- Automatic data updates via WebSocket connection
+- Comprehensive sensor categories:
+  - Basic System Information (Online Status, Model, Device Name)
+  - Water Usage (Current Flow, Daily Usage, Peak Flow)
+  - Salt Management (Level, Days Remaining, Usage Statistics)
+  - System Performance (Capacity, Hardness, Treatment Stats)
+  - Regeneration Status (Current Status, History, Scheduling)
+  - Critical Alerts (Salt, Errors, Flow, Leaks)
+  - Signal and Connection (WiFi Strength, Connection Quality)
+  - Maintenance Information (Service Reminders, Operation Stats)
 
 ## Installation
 
@@ -51,41 +52,62 @@ This integration is a HACS-compatible adaptation of the original [Hydrolink-Home
 
 ## Available Sensors
 
-| Sensor | Description | Unit | Default Enabled |
-|--------|-------------|------|-----------------|
-| Water Usage Today | Today's water consumption | Gallons | Yes |
-| Water Usage Yesterday | Yesterday's water consumption | Gallons | Yes |
-| Average Daily Water Usage | Average daily water usage | Gallons | Yes |
-| Salt Level | Current salt level | % | Yes |
-| Salt Days Remaining | Days until salt needs refilling | Days | Yes |
-| Water Flow Rate | Current water flow rate | GPM | Yes |
-| Water Hardness | Water hardness level | GPG | Yes |
-| Water Pressure | Current water pressure | PSI | Yes |
-| Water Temperature | Current water temperature | °F | Yes |
-| Regeneration Status | Days until next regeneration | Days | Yes |
-| Last Regeneration | Timestamp of last regeneration | - | Yes |
-| System Error | Any current system errors | - | Yes |
-| Online Status | Device connectivity status | - | Yes |
-| Vacation Mode | Vacation mode status | - | Yes |
-
-### Diagnostic Sensors (Hidden by Default)
-
-These sensors are available but hidden by default. They can be enabled in the Home Assistant UI if needed:
-
+### Water Usage and Flow
 | Sensor | Description | Unit |
 |--------|-------------|------|
-| WiFi Signal Strength | Device WiFi signal strength | dBm |
-| Days Since Last Time Loss | Days since last power outage | Days |
-| Power Outage Count | Number of power outages | Count |
-| Total Untreated Water | Total untreated water used | Gallons |
-| Rock Salt Removed | Total hardness removed | lbs |
-| Salt Efficiency | Grains of hardness removed per lb of salt | Grains/lb |
-| Error Code | Current error code | - |
-| Error Alert Status | Error alert flag | - |
-| Leak Alert Status | Water leak detection status | - |
-| Flow Monitor Alert | Excessive flow alert status | - |
-| Last Service Date | Date of last service | - |
-| Software Version | Device firmware version | - |
+| Current Water Flow | Current water flow rate | GPM |
+| Water Used Today | Today's water consumption | Gallons |
+| Average Daily Usage | Average daily water usage | Gallons |
+| Total Treated Water | Total treated water volume | Gallons |
+| Peak Water Flow | Peak water flow rate | GPM |
+| Available Treated Water | Available treated water | Gallons |
+
+### Salt Management
+| Sensor | Description | Unit |
+|--------|-------------|------|
+| Salt Level | Current salt level | % |
+| Days Until Salt Needed | Estimated days until salt refill | Days |
+| Average Salt Per Regeneration | Salt used per regeneration cycle | lbs |
+| Total Salt Used | Total salt consumption | lbs |
+
+### System Performance
+| Sensor | Description | Unit |
+|--------|-------------|------|
+| Remaining Capacity | Remaining treatment capacity | % |
+| Operating Capacity | System operating capacity | Grains |
+| Water Hardness | Current water hardness level | Grains |
+| Hardness Removed (Recent) | Hardness removed since last recharge | lbs |
+| Daily Average Hardness Removed | Average daily hardness removal | lbs |
+| Total Hardness Removed | Total lifetime hardness removal | lbs |
+
+### Regeneration Status
+| Sensor | Description | Unit |
+|--------|-------------|------|
+| Regeneration Status | Current regeneration state | - |
+| Days Since Last Regeneration | Time since last regeneration | Days |
+| Total Regenerations | Total regeneration cycles | Count |
+| Manual Regenerations | Manual regeneration count | Count |
+| Remaining Regeneration Time | Time left in current cycle | Minutes |
+
+### System Health and Alerts
+| Sensor | Description | Unit |
+|--------|-------------|------|
+| Low Salt Alert | Salt level warning status | - |
+| Error Code Alert | System error indicator | - |
+| Flow Monitor Alert | Abnormal flow warning | - |
+| Water Usage Alert | Excessive usage warning | - |
+| Leak Detector Alert | Water leak warning | - |
+| Service Reminder | Maintenance reminder | - |
+
+### System Status
+| Sensor | Description | Unit |
+|--------|-------------|------|
+| Online Status | Device connectivity | - |
+| WiFi Signal Strength | Signal strength | dBm |
+| Signal Quality | WiFi signal bars | Count |
+| Days in Operation | System operation time | Days |
+| Power Outage Count | Number of power failures | Count |
+| Service Due | Months until service | Months |
 
 ## Troubleshooting
 
