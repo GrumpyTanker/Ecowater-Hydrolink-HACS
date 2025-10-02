@@ -29,6 +29,13 @@ Changelog:
   * Added type hints and dataclass models
   * Enhanced data organization and cleaning
   * Added example data for development
+  
+- 0.3.0 (2025-10-02)
+  * Added comprehensive documentation of all sensors
+  * Added diagnostic sensors section
+  * Improved data cleaning and organization
+  * Enhanced example data with complete attribute descriptions
+  * Added discovery tools for development
 
 License: Apache License 2.0
 See LICENSE file in the project root for full license information.

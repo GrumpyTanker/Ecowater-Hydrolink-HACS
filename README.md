@@ -121,6 +121,28 @@ logger:
 
 Contributions are welcome! Please feel free to submit a Pull Request.
 
+## Version History
+
+### Version 0.3.0
+- Added comprehensive documentation of all sensors
+- Added diagnostic sensors section
+- Improved data cleaning and organization
+- Enhanced example data with complete attribute descriptions
+- Added discovery tools for development
+
+### Version 0.2.0
+- Added WebSocket support for real-time updates
+- Added HACS compatibility
+- Improved error handling and logging
+- Added type hints and dataclass models
+- Enhanced data organization and cleaning
+- Added example data for development
+
+### Version 0.1.0
+- Initial release based on Hydrolink-Home-Status
+- Basic API implementation
+- Device data retrieval
+
 ## License
 
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
@@ -128,4 +150,5 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 ## Acknowledgments
 
 - Thanks to EcoWater for providing the HydroLink platform
+- Based on the original [Hydrolink-Home-Status](https://github.com/GrumpyTanker/Hydrolink-Home-Status) project
 - Thanks to the Home Assistant community for their support and feedback
