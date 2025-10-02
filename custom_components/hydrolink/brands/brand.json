@@ -1,0 +1,8 @@
+{
+    "domain": "hydrolink",
+    "name": "HydroLink",
+    "documentation": "https://github.com/GrumpyTanker/hydrolink-hacs",
+    "codeowners": ["@GrumpyTanker"],
+    "iot_class": "cloud_polling",
+    "version": "0.3.0"
+}
