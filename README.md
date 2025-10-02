@@ -151,4 +151,8 @@ This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENS
 
 - Thanks to EcoWater for providing the HydroLink platform
 - Based on the original [Hydrolink-Home-Status](https://github.com/GrumpyTanker/Hydrolink-Home-Status) project
+
+## Trademark Legal Notice
+
+This project is not affiliated with, endorsed by, or connected to EcoWater Systems LLC. EcoWater, HydroLink, and any related logos are trademarks of EcoWater Systems LLC. These trademarks are used for reference only.
 - Thanks to the Home Assistant community for their support and feedback
