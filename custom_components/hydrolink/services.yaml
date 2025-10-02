@@ -1,6 +1,10 @@
 trigger_regeneration:
   name: Trigger Regeneration
-  description: Trigger a manual regeneration cycle for a specific water softener.
+  description: >
+    Trigger a manual regeneration cycle for a specific water softener.
+    This will start an immediate regeneration cycle regardless of the current schedule.
+    Use this service in automations or scripts to force a regeneration when needed.
+    Note: The device must be online and not already in a regeneration cycle.
   target:
     entity:
       integration: hydrolink
