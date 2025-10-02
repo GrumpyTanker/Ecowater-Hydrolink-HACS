@@ -4,7 +4,7 @@
     "documentation": "https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS",
     "codeowners": ["@GrumpyTanker"],
     "iot_class": "cloud_polling",
-    "version": "1.0.0",
-    "logo": "EcoWater Systems_idUPc3KSg3_1.svg",
-    "icon": "EcoWater Systems_idUPc3KSg3_1.svg"
+    "version": "1.0.1",
+    "logo": "logo.svg",
+    "icon": "icon.svg"
 }
