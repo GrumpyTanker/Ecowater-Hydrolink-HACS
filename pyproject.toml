@@ -1,3 +1,23 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "hydrolink"
+version = "1.0.0"
+authors = [
+    { name = "GrumpyTanker" },
+]
+description = "EcoWater HydroLink Integration for Home Assistant"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["custom_components*"]
+exclude = ["discovery*", "tests*"]
+
 [tool.pytest.ini_options]
 testpaths = "tests"
 norecursedirs = ".git"
