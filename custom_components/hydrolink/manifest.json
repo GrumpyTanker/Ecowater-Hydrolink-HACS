@@ -17,5 +17,5 @@
   "quality_scale": "silver",
   "dependencies": [],
   "after_dependencies": [],
-  "homeassistant": "2024.10.0"
+  "min_homeassistant_version": "2024.10.0"
 }
