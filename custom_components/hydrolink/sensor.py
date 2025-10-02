@@ -436,7 +436,6 @@ SENSOR_DESCRIPTIONS = {
         "category": "HARDWARE",
         "entity_category": EntityCategory.DIAGNOSTIC,
     },
-}
     "water_hardness": {
         "name": "Water Hardness",
         "unit": "gpg",
