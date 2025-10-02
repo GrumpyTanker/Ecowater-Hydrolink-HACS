@@ -59,41 +59,52 @@ SENSOR_CATEGORIES = {
 
 # Set of sensors to be enabled by default
 DEFAULT_ENABLED_SENSORS = {
-    # Basic status
-    "online",
-    "system_error",
-    "vacation_mode",
+    # Basic Status
+    "online",                      # Online/offline status
+    "system_error",                # System error indication
+    "vacation_mode",               # Vacation mode status
     
-    # Critical metrics
-    "water_flow_rate",
-    "salt_level_percent",
-    "salt_level_days_remaining",
-    "out_of_salt_date",
-    "capacity_remaining_percent",
+    # Water Usage and Flow
+    "water_flow_rate",             # Current water flow rate
+    "water_usage_today",           # Today's water usage
+    "water_usage_daily_average",   # Average daily water usage
+    "total_outlet_water_gals",     # Total treated water
+    "peak_water_flow_gpm",         # Peak water flow
     
-    # Water usage
-    "water_usage_today",
-    "water_usage_daily_average",
-    "water_usage_yesterday",
-    "water_hardness",
+    # Salt Management
+    "salt_level_percent",          # Current salt level
+    "salt_level_days_remaining",   # Days until salt needed
+    "out_of_salt_date",            # Projected out of salt date
+    "avg_salt_per_regen_lbs",      # Salt used per regeneration
     
-    # Regeneration
-    "regeneration_days_remaining",
-    "regeneration_last",
-    "days_since_last_regen",
+    # System Performance
+    "capacity_remaining_percent",   # Remaining capacity
+    "water_hardness",              # Water hardness level
+    "rock_removed_since_rech_lbs", # Hardness removed since recharge
+    "daily_avg_rock_removed_lbs",  # Average daily hardness removed
     
-    # Environmental
-    "water_pressure",
-    "inlet_water_pressure",
-    "outlet_water_pressure",
-    "water_temperature",
-    "inlet_water_temperature",
-    "outlet_water_temperature",
+    # Pressure and Temperature
+    "water_pressure",              # Overall water pressure
+    "inlet_water_pressure",        # Inlet pressure
+    "outlet_water_pressure",       # Outlet pressure
+    "water_temperature",           # Water temperature
     
-    # Alerts
-    "low_salt_alert",
-    "error_code_alert",
-    "service_reminder_alert",
+    # Regeneration Status
+    "regeneration_days_remaining", # Days until next regeneration
+    "regeneration_last",           # Last regeneration timestamp
+    "days_since_last_regen",      # Days since last regeneration
+    "total_regens",               # Total regeneration count
+    
+    # Critical Alerts
+    "low_salt_alert",             # Low salt warning
+    "error_code_alert",           # System error alert
+    "service_reminder_alert",      # Service needed reminder
+    "flow_monitor_alert",         # Abnormal flow alert
+    "excessive_water_use_alert",  # High water usage alert
+    
+    # Maintenance Info
+    "service_reminder_months",    # Months until service needed
+    "days_in_operation",         # Total days system has operated
 }
 
 # Descriptions for each sensor
