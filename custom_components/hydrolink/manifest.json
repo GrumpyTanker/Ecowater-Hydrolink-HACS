@@ -1,20 +1,20 @@
 {
   "domain": "hydrolink",
   "name": "EcoWater HydroLink",
+  "after_dependencies": [],
+  "codeowners": [
+    "@GrumpyTanker"
+  ],
   "config_flow": true,
+  "dependencies": [],
   "documentation": "https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS",
+  "integration_type": "hub",
+  "iot_class": "cloud_polling",
   "issue_tracker": "https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS/issues",
+  "quality_scale": "silver",
   "requirements": [
     "requests",
     "websocket-client"
   ],
-  "version": "1.0.0",
-  "codeowners": [
-    "@GrumpyTanker"
-  ],
-  "iot_class": "cloud_polling",
-  "integration_type": "hub",
-  "quality_scale": "silver",
-  "dependencies": [],
-  "after_dependencies": []
+  "version": "1.0.0"
 }
