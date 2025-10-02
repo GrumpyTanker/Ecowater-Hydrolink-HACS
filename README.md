@@ -65,6 +65,25 @@ This integration is a HACS-compatible adaptation of the original [Hydrolink-Home
 | Online Status | Device connectivity status | - | Yes |
 | Vacation Mode | Vacation mode status | - | Yes |
 
+### Diagnostic Sensors (Hidden by Default)
+
+These sensors are available but hidden by default. They can be enabled in the Home Assistant UI if needed:
+
+| Sensor | Description | Unit |
+|--------|-------------|------|
+| WiFi Signal Strength | Device WiFi signal strength | dBm |
+| Days Since Last Time Loss | Days since last power outage | Days |
+| Power Outage Count | Number of power outages | Count |
+| Total Untreated Water | Total untreated water used | Gallons |
+| Rock Salt Removed | Total hardness removed | lbs |
+| Salt Efficiency | Grains of hardness removed per lb of salt | Grains/lb |
+| Error Code | Current error code | - |
+| Error Alert Status | Error alert flag | - |
+| Leak Alert Status | Water leak detection status | - |
+| Flow Monitor Alert | Excessive flow alert status | - |
+| Last Service Date | Date of last service | - |
+| Software Version | Device firmware version | - |
+
 ## Troubleshooting
 
 ### Common Issues
