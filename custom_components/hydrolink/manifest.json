@@ -9,7 +9,7 @@
     "requests",
     "websocket-client"
   ],
-  "version": "0.3.6",
+  "version": "0.3.7",
   "codeowners": [
     "@GrumpyTanker"
   ],

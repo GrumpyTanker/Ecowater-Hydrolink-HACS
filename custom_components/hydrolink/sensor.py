@@ -606,7 +606,20 @@ class HydroLinkSensor(CoordinatorEntity, SensorEntity):
         """Return the state of the sensor."""
         for device in self.coordinator.data:
             if device["id"] == self._device_id:
-                return device["properties"][self._property_name].get("value")
+                value = device["properties"][self._property_name].get("value")
+                
+                # Handle numeric sensors when value is unknown
+                if (value == "unknown" and self.device_class in [
+                    SensorDeviceClass.ENERGY,
+                    SensorDeviceClass.POWER,
+                    SensorDeviceClass.CURRENT,
+                    SensorDeviceClass.VOLTAGE,
+                    SensorDeviceClass.PRESSURE,
+                    SensorDeviceClass.TEMPERATURE
+                ]):
+                    return None
+                    
+                return value
         return None
 
     @property
