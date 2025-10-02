@@ -1,7 +1,3 @@
-[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs)
-[![hassfest validation](https://github.com/GrumpyTanker/hydrolink-hacs/workflows/Validate%20with%20hassfest/badge.svg)](https://github.com/GrumpyTanker/hydrolink-hacs/actions/workflows/hassfest.yaml)
-[![HACS validation](https://github.com/GrumpyTanker/hydrolink-hacs/workflows/HACS%20Validation/badge.svg)](https://github.com/GrumpyTanker/hydrolink-hacs/actions/workflows/hacs.yaml)
-
 name: HACS Validation
 
 on:
@@ -18,4 +14,5 @@ jobs:
       - name: HACS validation
         uses: "hacs/action@main"
         with:
+          category: "integration"
           category: "integration"
