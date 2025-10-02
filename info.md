@@ -27,5 +27,5 @@ Based on the original [Hydrolink-Home-Status](https://github.com/GrumpyTanker/Hy
 
 ## Support
 
-- Report issues on [GitHub](https://github.com/GrumpyTanker/hydrolink-hacs/issues)
+- Report issues on [GitHub](https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS/issues)
 - Join the discussion in the [Home Assistant Community](https://community.home-assistant.io/)

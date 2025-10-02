@@ -21,7 +21,7 @@ Changelog:
   * Added type hints
   * Added data update coordinator
 
-License: Apache License 2.0
+License: MIT
 See LICENSE file in the project root for full license information.
 """
 from __future__ import annotations

@@ -19,7 +19,7 @@ Changelog:
   * Added platform definitions
   * Improved organization
 
-License: Apache License 2.0
+License: MIT
 See LICENSE file in the project root for full license information.
 """
 

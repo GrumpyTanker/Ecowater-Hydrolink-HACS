@@ -1,0 +1,99 @@
+[MASTER]
+ignore=CVS,custom_components/hydrolink/icons
+load-plugins=pylint_strict_informational
+
+# Use a conservative default here; 2 should speed up most setups and not hurt
+# any too bad. Override on command line as appropriate.
+jobs=2
+
+persistent=no
+
+# List of plugins (as comma separated values of python modules names) to load,
+# usually to register additional checkers.
+load-plugins=
+
+# Allow loading of arbitrary C extensions. Extensions are imported into the
+# active Python interpreter and may run arbitrary code.
+unsafe-load-any-extension=no
+
+[MESSAGES CONTROL]
+# Reasons disabled:
+# missing-docstring - not everything needs a docstring
+# empty-docstring - docstrings can be empty
+# too-many-* - are not enforced for the sake of readability
+# too-few-* - same as too-many-*
+# abstract-method - with intro of async there are always methods missing
+# inconsistent-return-statements - doesn't handle raise
+# too-many-ancestors - it's too strict.
+# wrong-import-order - isort guards this
+disable=
+    missing-docstring,
+    empty-docstring,
+    too-many-arguments,
+    too-many-branches,
+    too-many-instance-attributes,
+    too-many-locals,
+    too-many-public-methods,
+    too-many-return-statements,
+    too-many-statements,
+    too-few-public-methods,
+    abstract-method,
+    inconsistent-return-statements,
+    too-many-ancestors,
+    wrong-import-order
+
+[REPORTS]
+reports=no
+
+[FORMAT]
+expected-line-ending-format=LF
+
+# Maximum number of characters on a single line.
+max-line-length=88
+
+[BASIC]
+good-names=id,i,j,k,ex,Run,_,fp
+
+# Regular expression which should only match function or class names that do
+# not require a docstring.
+no-docstring-rgx=__.*__
+
+# Naming style matching correct variable names
+variable-naming-style=snake_case
+
+# Regular expression matching correct variable names
+variable-rgx=[a-z_][a-z0-9_]{1,30}$
+
+# Regular expression matching correct constant names
+const-rgx=(([A-Z_][A-Z0-9_]*)|(__.*__))$
+
+# Regular expression matching correct attribute names
+attr-rgx=[a-z_][a-z0-9_]{1,30}$
+
+# Regular expression matching correct argument names
+argument-rgx=[a-z_][a-z0-9_]{1,30}$
+
+# Regular expression matching correct class attribute names
+class-attribute-rgx=([A-Za-z_][A-Za-z0-9_]{1,30}|(__.*__))$
+
+# Regular expression matching correct class names
+class-rgx=[A-Z_][a-zA-Z0-9]+$
+
+# Regular expression matching correct module names
+module-rgx=(([a-z_][a-z0-9_]*)|([A-Z][a-zA-Z0-9]+))$
+
+# Regular expression matching correct method names
+method-rgx=[a-z_][a-z0-9_]{2,60}$
+
+# Regular expression which should only match function or class names that do
+# not require a docstring.
+no-docstring-rgx=__.*__
+
+[VARIABLES]
+# A regular expression matching the name of dummy variables (i.e. expectedly
+# not used).
+dummy-variables-rgx=_$|dummy
+
+# List of additional names to consider as builtins. Remember that you should
+# avoid defining new builtins when possible.
+additional-builtins=

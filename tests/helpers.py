@@ -25,7 +25,7 @@ Changelog:
   * Improved async mock configuration
   * Enhanced test infrastructure reliability
 
-License: Apache License 2.0
+License: MIT
 See LICENSE file in the project root for full license information.
 """
 from unittest.mock import AsyncMock, Mock, patch

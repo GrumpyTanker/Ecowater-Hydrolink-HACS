@@ -17,7 +17,7 @@ Changelog:
   * Added socket disabling
   * Improved test isolation
 
-License: Apache License 2.0
+License: MIT
 See LICENSE file in the project root for full license information.
 """
 

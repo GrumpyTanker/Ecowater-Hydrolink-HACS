@@ -1,8 +1,10 @@
 {
     "domain": "hydrolink",
-    "name": "HydroLink",
-    "documentation": "https://github.com/GrumpyTanker/hydrolink-hacs",
+    "name": "EcoWater HydroLink",
+    "documentation": "https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS",
     "codeowners": ["@GrumpyTanker"],
     "iot_class": "cloud_polling",
-    "version": "0.3.9"
+    "version": "1.0.0",
+    "logo": "EcoWater Systems_idUPc3KSg3_1.svg",
+    "icon": "EcoWater Systems_idUPc3KSg3_1.svg"
 }

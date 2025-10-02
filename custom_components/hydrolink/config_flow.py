@@ -27,7 +27,7 @@ Changelog:
   * Enhanced input validation
   * Added comprehensive error state management
 
-License: Apache License 2.0
+License: MIT
 See LICENSE file in the project root for full license information.
 """
 import logging

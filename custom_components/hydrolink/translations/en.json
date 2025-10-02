@@ -24,5 +24,36 @@
         "online": "Online",
         "offline": "Offline",
         "regenerating": "Regenerating"
+    },
+    "entity": {
+        "sensor": {
+            "salt_level": {
+                "name": "Salt Level",
+                "state": {
+                    "ok": "OK",
+                    "low": "Low",
+                    "very_low": "Very Low"
+                }
+            },
+            "water_flow": {
+                "name": "Water Flow"
+            },
+            "total_water_used": {
+                "name": "Total Water Used"
+            },
+            "days_since_regeneration": {
+                "name": "Days Since Regeneration"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "HydroLink Options",
+                "data": {
+                    "scan_interval": "Update interval (seconds)"
+                }
+            }
+        }
     }
 }

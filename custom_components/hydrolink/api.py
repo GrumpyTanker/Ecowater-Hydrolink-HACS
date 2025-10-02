@@ -37,8 +37,11 @@ Changelog:
   * Enhanced example data with complete attribute descriptions
   * Added discovery tools for development
 
-License: Apache License 2.0
+License: MIT
 See LICENSE file in the project root for full license information.
+"""
+
+import logging
 You may obtain a copy of the License at
 
     http://www.apache.org/licenses/LICENSE-2.0

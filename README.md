@@ -1,7 +1,10 @@
 # EcoWater HydroLink Integration for Home Assistant
 
-[![hacs_badge](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs)
-[![License](https://img.shields.io/github/license/GrumpyTanker/hydrolink-hacs)](LICENSE)
+[![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg)](https://github.com/hacs/integration)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Validate](https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS/workflows/Validate/badge.svg)](https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS/actions)
+[![Maintainability](https://api.codeclimate.com/v1/badges/YOUR_REPO_ID/maintainability)](https://codeclimate.com/github/GrumpyTanker/Ecowater-Hydrolink-HACS)
+[![Coverage](https://codecov.io/gh/GrumpyTanker/Ecowater-Hydrolink-HACS/branch/main/graph/badge.svg)](https://codecov.io/gh/GrumpyTanker/Ecowater-Hydrolink-HACS)
 
 A Home Assistant integration for EcoWater's HydroLink connected water softeners. Monitor your water softener's performance, water usage, salt levels, and more directly in Home Assistant.
 
@@ -23,11 +26,13 @@ This integration is a HACS-compatible adaptation of the original [Hydrolink-Home
 ## Installation
 
 ### HACS Installation (Preferred)
-1. Open HACS in your Home Assistant instance
-2. Click on "Integrations"
-3. Click the three dots in the top right corner
-4. Select "Custom repositories"
-5. Add this repository URL: https://github.com/GrumpyTanker/hydrolink-hacs
+1. Ensure you have [HACS](https://hacs.xyz) installed in your Home Assistant instance
+2. Search for "EcoWater HydroLink" in HACS
+3. Click Install
+4. Restart Home Assistant
+5. Add the integration via the Home Assistant UI (Configuration -> Devices & Services -> + Add Integration)
+6. Search for "EcoWater HydroLink"
+7. Enter your HydroLink credentials when prompted
 6. Select "Integration" as the category
 7. Click "Add"
 8. Find "EcoWater HydroLink" in the integration list and install it
@@ -152,7 +157,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
