@@ -1,6 +1,5 @@
 {
     "name": "EcoWater HydroLink",
     "render_readme": true,
-    "domain": "sensor",
     "country": ["US", "CA"]
 }
