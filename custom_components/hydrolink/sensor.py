@@ -102,7 +102,7 @@ SENSOR_DESCRIPTIONS = {
     "online": {
         "name": "Online Status",
         "unit": None,
-        "device_class": SensorDeviceClass.CONNECTIVITY,
+        "device_class": None,  # Removed CONNECTIVITY as it's no longer a valid device class
         "state_class": None,
         "icon": "mdi:wifi",
         "category": "BASIC",
@@ -110,7 +110,7 @@ SENSOR_DESCRIPTIONS = {
     "system_error": {
         "name": "System Error",
         "unit": None,
-        "device_class": SensorDeviceClass.PROBLEM,
+        "device_class": None,  # Removed PROBLEM as it's no longer a valid device class
         "state_class": None,
         "icon": "mdi:alert",
         "category": "BASIC",
@@ -370,7 +370,7 @@ SENSOR_DESCRIPTIONS = {
     "low_salt_alert": {
         "name": "Low Salt Alert",
         "unit": None,
-        "device_class": SensorDeviceClass.PROBLEM,
+        "device_class": None,  # Removed PROBLEM as it's no longer a valid device class
         "state_class": None,
         "icon": "mdi:alert-circle",
         "category": "ALERTS",
@@ -378,7 +378,7 @@ SENSOR_DESCRIPTIONS = {
     "error_code_alert": {
         "name": "Error Code Alert",
         "unit": None,
-        "device_class": SensorDeviceClass.PROBLEM,
+        "device_class": None,
         "state_class": None,
         "icon": "mdi:alert",
         "category": "ALERTS",
@@ -386,7 +386,7 @@ SENSOR_DESCRIPTIONS = {
     "service_reminder_alert": {
         "name": "Service Reminder",
         "unit": None,
-        "device_class": SensorDeviceClass.PROBLEM,
+        "device_class": None,
         "state_class": None,
         "icon": "mdi:tools",
         "category": "ALERTS",
@@ -394,7 +394,7 @@ SENSOR_DESCRIPTIONS = {
     "flow_monitor_alert": {
         "name": "Flow Monitor Alert",
         "unit": None,
-        "device_class": SensorDeviceClass.PROBLEM,
+        "device_class": None,
         "state_class": None,
         "icon": "mdi:water-alert",
         "category": "ALERTS",
@@ -402,7 +402,7 @@ SENSOR_DESCRIPTIONS = {
     "excessive_water_use_alert": {
         "name": "Excessive Water Use Alert",
         "unit": None,
-        "device_class": SensorDeviceClass.PROBLEM,
+        "device_class": None,
         "state_class": None,
         "icon": "mdi:water-alert",
         "category": "ALERTS",

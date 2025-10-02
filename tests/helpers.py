@@ -20,8 +20,14 @@ Changelog:
   * Added type hints
   * Improved mock configuration
 
+- 0.2.1 (2025-10-02)
+  * Added exception propagation in executor jobs
+  * Improved async mock configuration
+  * Enhanced test infrastructure reliability
+
 License: Apache License 2.0
 See LICENSE file in the project root for full license information.
+"""
 from unittest.mock import AsyncMock, Mock, patch
 
 from homeassistant.core import HomeAssistant
@@ -30,8 +36,11 @@ def create_mock_hass():
     """Create a mock Home Assistant instance."""
     hass = Mock(spec=HomeAssistant)
     
-    # Mock async_add_executor_job
-    hass.async_add_executor_job = AsyncMock()
+    # Mock async_add_executor_job to propagate exceptions
+    async def async_exec_with_exc(func, *args, **kwargs):
+        """Execute function and propagate exceptions."""
+        return func(*args, **kwargs)
+    hass.async_add_executor_job = async_exec_with_exc
     
     # Mock config_entries
     config_entries = Mock()

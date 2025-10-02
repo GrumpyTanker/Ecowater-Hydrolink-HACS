@@ -21,6 +21,12 @@ Changelog:
   * Added type hints
   * Added reauth support
 
+- 0.2.1 (2025-10-02)
+  * Fixed error handling in config flow
+  * Improved exception propagation
+  * Enhanced input validation
+  * Added comprehensive error state management
+
 License: Apache License 2.0
 See LICENSE file in the project root for full license information.
 """
@@ -68,26 +74,50 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
         """
         errors = {}
         if user_input is not None:
+            # Check for empty fields first
+            if not user_input.get(CONF_EMAIL) or not user_input.get(CONF_PASSWORD):
+                errors["base"] = "invalid_auth"
+                return self.async_show_form(
+                    step_id="user",
+                    data_schema=DATA_SCHEMA,
+                    errors=errors,
+                )
+
             try:
                 # Create an API instance and attempt to log in
                 api = HydroLinkApi(user_input[CONF_EMAIL], user_input[CONF_PASSWORD])
-                await self.hass.async_add_executor_job(api.login)
                 
-                # Set the unique ID for the config entry and check for duplicates
+                # Wrap in try-except to handle API exceptions
+                try:
+                    # Note: login may raise InvalidAuth or CannotConnect
+                    await self.hass.async_add_executor_job(api.login)
+                except (InvalidAuth, CannotConnect) as err:
+                    # Re-raise original exception to maintain error type
+                    raise err
+                except Exception as err:
+                    _LOGGER.exception("Unexpected API error")
+                    raise CannotConnect from err
+                
+                # Only proceed if login was successful
                 await self.async_set_unique_id(user_input[CONF_EMAIL])
                 self._abort_if_unique_id_configured()
-
+                
                 # Create the config entry
-                return self.async_create_entry(title=user_input[CONF_EMAIL], data=user_input)
-            except CannotConnect:
-                errors["base"] = "cannot_connect"
+                return self.async_create_entry(
+                    title=user_input[CONF_EMAIL],
+                    data=user_input
+                )
+                
             except InvalidAuth:
                 errors["base"] = "invalid_auth"
+            except CannotConnect:
+                errors["base"] = "cannot_connect"
             except Exception:  # pylint: disable=broad-except
-                _LOGGER.exception("Unexpected exception")
+                _LOGGER.exception("Failed to create API instance")
                 errors["base"] = "unknown"
-
-        # Display the form with any errors
+        # Show form with or without errors
         return self.async_show_form(
-            step_id="user", data_schema=DATA_SCHEMA, errors=errors
+            step_id="user",
+            data_schema=DATA_SCHEMA,
+            errors=errors,
         )

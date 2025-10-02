@@ -123,6 +123,13 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Version History
 
+### Version 0.3.1 (October 2, 2025)
+- Fixed config flow error handling
+- Improved exception handling and propagation
+- Enhanced test infrastructure reliability
+- Added comprehensive error state management
+- Fixed async executor job handling
+
 ### Version 0.3.0
 - Added comprehensive documentation of all sensors
 - Added diagnostic sensors section

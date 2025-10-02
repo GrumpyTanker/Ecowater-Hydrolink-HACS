@@ -1,6 +1,7 @@
 """Unit tests for the HydroLink sensor platform."""
 from unittest.mock import Mock, patch
 import pytest
+from homeassistant.core import HomeAssistant
 from homeassistant.const import (
     PERCENTAGE,
     UnitOfPressure,
@@ -82,7 +83,7 @@ def test_sensor_default_enabled(sensor):
     )
 
 @pytest.mark.asyncio
-async def test_async_setup_entry(hass):
+async def test_async_setup_entry(hass: HomeAssistant):
     """Test platform setup."""
     mock_entry = Mock()
     mock_coordinator = Mock()
@@ -98,8 +99,12 @@ async def test_async_setup_entry(hass):
         }
     ]
     
+    # Set up the hass mock properly
+    hass.config = Mock()
+    hass.config.config_dir = "/test/config"
     hass.data = {"hydrolink": {mock_entry.entry_id: mock_coordinator}}
     
+    # Create the async_add_entities mock
     async_add_entities = Mock()
     await async_setup_entry(hass, mock_entry, async_add_entities)
     

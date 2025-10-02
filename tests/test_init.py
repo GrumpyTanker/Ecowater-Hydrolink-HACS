@@ -1,10 +1,11 @@
 """Unit tests for the HydroLink integration."""
-from unittest.mock import Mock, patch
+from unittest.mock import AsyncMock, Mock, patch
 import pytest
 from homeassistant.core import HomeAssistant
 from homeassistant.config_entries import ConfigEntry
 from custom_components.hydrolink import async_setup_entry, async_unload_entry
 from custom_components.hydrolink.const import DOMAIN
+from custom_components.hydrolink.const import PLATFORMS
 
 # Test data
 MOCK_CONFIG = {
@@ -28,17 +29,22 @@ def mock_config_entry() -> ConfigEntry:
     )
 
 @pytest.fixture
-def mock_coordinator() -> Mock:
+def mock_coordinator(hass: HomeAssistant, mock_config_entry: ConfigEntry) -> Mock:
     """Create a mock data update coordinator."""
-    coordinator = Mock()
+    from custom_components.hydrolink.coordinator import HydroLinkDataUpdateCoordinator
+    
+    coordinator = HydroLinkDataUpdateCoordinator(hass, mock_config_entry)
     coordinator.async_setup = Mock(return_value=True)
-    coordinator.async_config_entry_first_refresh = Mock()
+    coordinator.async_config_entry_first_refresh = AsyncMock()
     return coordinator
 
 @pytest.mark.asyncio
 async def test_setup_entry(hass: HomeAssistant, mock_config_entry: ConfigEntry, mock_coordinator: Mock):
     """Test setting up the integration."""
-    hass = create_mock_hass()
+    # Mock the required hass attributes
+    hass.config = Mock()
+    hass.config.config_dir = "/test/config"
+    hass.data = {}
     
     with patch("custom_components.hydrolink.coordinator.HydroLinkDataUpdateCoordinator", return_value=mock_coordinator):
         result = await async_setup_entry(hass, mock_config_entry)
@@ -52,10 +58,10 @@ async def test_setup_entry(hass: HomeAssistant, mock_config_entry: ConfigEntry, 
 @pytest.mark.asyncio
 async def test_unload_entry(hass: HomeAssistant, mock_config_entry: ConfigEntry, mock_coordinator: Mock):
     """Test unloading the integration."""
-    hass = create_mock_hass()
-    hass.data[DOMAIN] = {
-        mock_config_entry.entry_id: mock_coordinator
-    }
+    # Mock the required hass attributes
+    hass.config = Mock()
+    hass.config.config_dir = "/test/config"
+    hass.data = {DOMAIN: {mock_config_entry.entry_id: mock_coordinator}}
     
     result = await async_unload_entry(hass, mock_config_entry)
     assert result is True
