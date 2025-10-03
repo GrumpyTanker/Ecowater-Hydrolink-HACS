@@ -18,10 +18,11 @@ dependencies = [
     "voluptuous>=0.13.1",
 ]
 
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["custom_components", "custom_components.hydrolink*"]
-exclude = ["discovery*", "tests*"]
+[tool.setuptools]
+packages = ["custom_components", "custom_components.hydrolink"]
+
+[tool.setuptools.package-data]
+"custom_components.hydrolink" = ["*.json", "*.yaml", "translations/*.json"]
 
 [tool.pytest.ini_options]
 testpaths = "tests"
