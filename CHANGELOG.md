@@ -5,16 +5,27 @@ All notable changes to the EcoWater HydroLink Integration will be documented in 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- GitHub issue templates for bug reports and feature requests
+- Pull request template for standardized contributions
+- Security policy (SECURITY.md) with vulnerability reporting guidelines
+- Contributing guidelines (CONTRIBUTING.md) with development setup
+- Code of Conduct (CODE_OF_CONDUCT.md) based on Contributor Covenant
+- Comprehensive changelog following Keep a Changelog format
+- Enhanced README with community health file references
+
+### Changed
+- Updated `iot_class` in manifest.json from `cloud_polling` to `cloud_push` to reflect WebSocket usage
+- Improved documentation structure with links to all community health files
+- Enhanced Quick Links section in README with organized user and contributor resources
+
 ## [1.1.0] - 2025-10-03
 
 ### Added
 - Enhanced test coverage to 58% with 55+ comprehensive tests
 - Improved test reliability and socket handling
-- GitHub issue templates for bug reports and feature requests
-- Security policy (SECURITY.md)
-- Contributing guidelines (CONTRIBUTING.md)
-- Code of Conduct (CODE_OF_CONDUCT.md)
-- Comprehensive changelog
 
 ### Fixed
 - HACS validation issues and CI/CD pipeline
