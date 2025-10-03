@@ -2,47 +2,57 @@
 """
 EcoWater HydroLink Sensor Platform for Home Assistant
 
-Implements the sensor platform for monitoring EcoWater HydroLink devices.
-This module defines all available sensors and their configurations based on
-the actual device capabilities, using standardized imperial units.
+Comprehensive sensor platform implementation for monitoring EcoWater HydroLink water
+softener devices. Provides 30+ sensors across 8 categories including water usage,
+salt management, system performance, regeneration status, and maintenance alerts.
 
-Author: GrumpyTanker
+Key Features:
+- Real-time water usage and flow monitoring with WebSocket updates
+- Comprehensive salt level tracking and efficiency analytics
+- System performance metrics and capacity monitoring
+- Regeneration status and history tracking
+- Proactive alert notifications for maintenance needs
+- Device health and connectivity monitoring
+- Standardized imperial units (gallons, GPM, pounds, grains)
+- Proper Home Assistant entity categorization and device classes
+
+Sensor Categories:
+1. Basic System Information - Device status, model, identifiers
+2. Water Usage Monitoring - Flow rates, consumption tracking
+3. Salt Management - Levels, efficiency, usage patterns  
+4. System Performance - Capacity, hardness, treatment metrics
+5. Regeneration Management - Status, history, scheduling
+6. Critical Alerts - Low salt, errors, flow anomalies
+7. Signal and Connection - WiFi strength, network status
+8. Maintenance Information - Service reminders, operation stats
+
+Author: GrumpyTanker + AI Assistant
 Created: June 12, 2025
 Updated: October 3, 2025
-Version: 1.1.0
 
-Features:
-- Comprehensive monitoring of EcoWater water softener systems (30+ sensors)
-- Standardized imperial units (gallons, GPM, pounds, grains) 
-- Real-time water usage and flow monitoring with WebSocket updates
-- Salt level and usage tracking with predictive maintenance
-- System performance metrics and regeneration monitoring
-- Alert and maintenance status with multiple alert types
-- Device health and connectivity monitoring with signal strength
-
-Changelog:
-- 1.1.0 (2025-10-03)
-  * Enhanced test coverage with comprehensive sensor testing
-  * Improved sensor entity creation and attribute handling
-  * Better device info and unique ID generation
-  * Updated for Home Assistant 2024.10.0+ and Python 3.12+
-
-- 1.0.0 (2025-10-02)
-  * Initial HACS-compatible release
-  * Complete sensor platform implementation with 30+ sensors
-  * Added comprehensive sensor categories
-  * Standardized on imperial units
-  * Improved entity categorization
+Version History:
+- 1.0.0 (2025-10-03)
+  * Production release with 30+ comprehensive sensors
+  * Enhanced categorization and entity organization
+  * Improved device class assignments and units
+  * Real-time WebSocket data integration
+  * Comprehensive alert and maintenance tracking
   
-- 0.3.0 (2025-10-02)
-  * Updated sensor list based on actual device capabilities
-  * Removed unsupported sensors
-  * Added all available device metrics
-  * Improved documentation and organization
+- 0.2.0 (2025-10-02)
+  * Added comprehensive sensor categories
+  * Standardized imperial unit usage
+  * Improved entity categorization and naming
+  * Enhanced data validation and error handling
+  
+- 0.1.0 (2025-06-12)
+  * Initial release with basic sensor support
+  * Core integration with HydroLink API
+  * Foundation sensor implementations
 
 License: MIT
 See LICENSE file in the project root for full license information.
 """
+
 from homeassistant.components.sensor import (
     SensorDeviceClass,
     SensorEntity,

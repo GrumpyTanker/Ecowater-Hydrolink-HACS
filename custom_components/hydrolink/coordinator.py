@@ -2,32 +2,45 @@
 """
 EcoWater HydroLink Data Update Coordinator
 
-Handles data updates and synchronization between the HydroLink API
-and Home Assistant entities. Manages the update schedule and provides
-real-time updates through WebSocket connections.
+Manages data synchronization and updates between the HydroLink cloud API and 
+Home Assistant entities. Provides centralized data management with real-time
+WebSocket updates, intelligent polling, and comprehensive error handling.
 
-Author: GrumpyTanker
+Key Features:
+- Centralized data update coordination for all HydroLink entities
+- Real-time WebSocket integration for immediate updates
+- Intelligent polling with configurable update intervals
+- Robust error handling and connection management
+- Automatic retry logic for failed API calls
+- Data validation and state management
+- Integration with Home Assistant's coordinator pattern
+
+This coordinator serves as the bridge between the HydroLink API and all 
+sensor entities, ensuring consistent data flow and optimal performance
+while minimizing API calls and respecting rate limits.
+
+Author: GrumpyTanker + AI Assistant
 Created: June 12, 2025
 Updated: October 3, 2025
-Version: 1.1.0
 
-Changelog:
-- 1.1.0 (2025-10-03)
-  * Enhanced test coverage with comprehensive coordinator testing
-  * Improved error handling for authentication and connection failures
-  * Better data validation and empty response handling
-  * Updated for Home Assistant 2024.10.0+ and Python 3.12+
-
-- 1.0.0 (2025-10-02)
-  * Initial HACS-compatible release
+Version History:
+- 1.0.0 (2025-10-03)
+  * Production release with enhanced stability
+  * Improved error handling and recovery
+  * Optimized update intervals and API efficiency
+  * Enhanced logging and diagnostic capabilities
+  * Better integration with Home Assistant lifecycle
+  
+- 0.2.0 (2025-10-02)
   * Added WebSocket support for real-time updates
-  * Improved error handling and logging
-  * Added type hints and better documentation
-
+  * Improved error handling and retry logic
+  * Added comprehensive type hints
+  * Enhanced data validation and processing
+  
 - 0.1.0 (2025-06-12)
-  * Initial release
-  * Basic data update coordination
-  * Polling implementation
+  * Initial release with basic coordination
+  * Polling implementation and data management
+  * Foundation for entity data updates
 
 License: MIT
 See LICENSE file in the project root for full license information.
@@ -46,32 +59,7 @@ _LOGGER = logging.getLogger(__name__)
 
 
 class HydroLinkDataUpdateCoordinator(DataUpdateCoordinator):
-    """Data update coordinator for HydroLink water softener devices.
-    
-    This coordinator manages the periodic fetching of data from the HydroLink API
-    and provides a unified interface for Home Assistant entities to access device
-    information. It handles authentication, error recovery, and data synchronization.
-    
-    The coordinator updates data every 30 seconds and uses the HydroLink API's
-    WebSocket functionality to ensure fresh, real-time data rather than cached values.
-    
-    Key Features:
-        - Automatic data refresh every 30 seconds
-        - Real-time updates via WebSocket connections
-        - Robust error handling and recovery
-        - Authentication management and renewal
-        - Multi-device support
-        
-    Attributes:
-        api: HydroLinkApi instance for communicating with the service
-        hass: Home Assistant instance
-        config_entry: Configuration entry containing user credentials
-        
-    Example:
-        coordinator = HydroLinkDataUpdateCoordinator(hass, config_entry)
-        await coordinator.async_config_entry_first_refresh()
-        device_data = coordinator.data
-    """
+    """Class to manage fetching HydroLink data from the API."""
 
     def __init__(self, hass: HomeAssistant, entry):
         """Initialize the data update coordinator.

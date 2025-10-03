@@ -2,34 +2,58 @@
 """
 EcoWater HydroLink Configuration Flow
 
-Handles the configuration flow for the HydroLink integration, including
-user authentication, validation, and setup of the integration.
+Manages the setup and configuration process for the HydroLink integration within
+Home Assistant. Provides a user-friendly interface for authentication, validation,
+and initial setup of the EcoWater water softener monitoring system.
 
-Author: GrumpyTanker + AI
+Key Features:
+- Secure credential collection and validation
+- Real-time API connectivity testing
+- User-friendly error messages and guidance
+- Automatic device discovery and configuration
+- Re-authentication support for expired credentials
+- Integration with Home Assistant's configuration UI
+- Proper handling of network and authentication errors
+
+Configuration Process:
+1. User credential input (email/password)
+2. API connectivity and authentication testing
+3. Device discovery and validation
+4. Integration setup and entity creation
+5. Success confirmation with device information
+
+This flow ensures a smooth setup experience while maintaining security
+and providing clear feedback throughout the configuration process.
+
+Author: GrumpyTanker + AI Assistant
 Created: June 12, 2025
-Updated: October 2, 2025
+Updated: October 3, 2025
 
-Changelog:
-- 0.1.0 (2025-06-12)
-  * Initial release
-  * Basic config flow setup
-  * User authentication
+Version History:
+- 1.0.0 (2025-10-03)
+  * Production release with enhanced user experience
+  * Improved error handling and user guidance
+  * Better validation and connectivity testing
+  * Enhanced security and credential management
+  
+- 0.2.1 (2025-10-02)
+  * Fixed error handling in configuration flow
+  * Improved validation feedback and messaging
   
 - 0.2.0 (2025-10-02)
-  * Added validation
-  * Improved error handling
-  * Added type hints
-  * Added reauth support
-
-- 0.2.1 (2025-10-02)
-  * Fixed error handling in config flow
-  * Improved exception propagation
-  * Enhanced input validation
-  * Added comprehensive error state management
+  * Added comprehensive input validation
+  * Enhanced error handling and user feedback
+  * Added re-authentication support
+  * Comprehensive type hints and documentation
+  
+- 0.1.0 (2025-06-12)
+  * Initial release with basic configuration flow
+  * User authentication and setup foundation
 
 License: MIT
 See LICENSE file in the project root for full license information.
 """
+
 import logging
 
 import voluptuous as vol

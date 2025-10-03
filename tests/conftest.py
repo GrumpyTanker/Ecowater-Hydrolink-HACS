@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 EcoWater HydroLink Test Configuration
 
@@ -5,7 +6,7 @@ Provides shared test configuration and fixtures for all HydroLink tests.
 
 Author: GrumpyTanker + AI
 Created: June 12, 2025
-Updated: October 3, 2025
+Updated: October 2, 2025
 
 Changelog:
 - 0.1.0 (2025-06-12)
@@ -16,10 +17,6 @@ Changelog:
   * Added socket disabling
   * Improved test isolation
 
-- 0.3.0 (2025-10-03)
-  * Fixed Python path for custom_components import
-  * Updated Home Assistant test compatibility
-
 License: MIT
 See LICENSE file in the project root for full license information.
 """
@@ -27,18 +24,11 @@ See LICENSE file in the project root for full license information.
 import asyncio
 import contextlib
 import os
-import sys
-from pathlib import Path
 from unittest.mock import AsyncMock, Mock, patch
 import pytest
 from homeassistant.const import CONF_EMAIL, CONF_PASSWORD
 from homeassistant.core import HomeAssistant
 from pytest_socket import disable_socket, enable_socket
-
-# Add the project root to Python path so we can import custom_components
-project_root = Path(__file__).parent.parent
-if str(project_root) not in sys.path:
-    sys.path.insert(0, str(project_root))
 
 @pytest.fixture(autouse=True)
 def disable_socket_for_tests():

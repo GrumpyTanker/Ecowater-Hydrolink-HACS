@@ -4,58 +4,67 @@ from __future__ import annotations
 """
 EcoWater HydroLink API Interface for Home Assistant
 
-A Python interface for interacting with EcoWater's HydroLink cloud service.
-This module handles authentication, data retrieval, and real-time updates
-through WebSocket connections.
+A comprehensive Python interface for interacting with EcoWater's HydroLink cloud service.
+This module provides secure authentication, real-time data retrieval, and WebSocket-based
+live updates for monitoring EcoWater water softener systems.
+
+Key Features:
+- Secure authentication with EcoWater cloud services
+- Real-time WebSocket connections for live data updates  
+- Comprehensive device data retrieval and organization
+- Robust error handling and connection management
+- Manual regeneration control capabilities
+- Support for multiple device monitoring
 
 Based on the original Hydrolink-Home-Status project:
 https://github.com/GrumpyTanker/Hydrolink-Home-Status
 
-This version adds HACS compatibility, real-time WebSocket updates,
-improved error handling, comprehensive data organization, and extensive testing.
+This enhanced version provides HACS compatibility, improved reliability,
+and full Home Assistant integration support.
 
-Author: GrumpyTanker
+Author: GrumpyTanker + AI Assistant
 Created: June 12, 2025
 Updated: October 3, 2025
-Version: 1.1.0
 
-Changelog:
-- 1.1.0 (2025-10-03)
-  * Enhanced test coverage with comprehensive API testing
-  * Fixed socket blocking issues and improved test reliability
-  * Corrected Device dataclass instantiation and API response handling
-  * Improved WebSocket connection stability and error recovery
-  * Updated for Home Assistant 2024.10.0+ and Python 3.12+
-
-- 1.0.0 (2025-10-02)
-  * Initial HACS-compatible release
-  * Added WebSocket support for real-time updates
-  * Added HACS compatibility and professional packaging
-  * Improved error handling and logging
-  * Added type hints and dataclass models
-
-- 0.1.0 (2025-06-12)
-  * Initial release based on Hydrolink-Home-Status
-  * Basic API implementation
-  * Device data retrieval
-  * Enhanced data organization and cleaning
-  * Added example data for development
+Version History:
+- 1.0.0 (2025-10-03)
+  * Production release with HACS compatibility
+  * Enhanced documentation and error handling
+  * Improved WebSocket stability and reconnection
+  * Added manual regeneration service support
+  * Comprehensive logging and debugging features
   
 - 0.3.0 (2025-10-02)
-  * Added comprehensive documentation of all sensors
-  * Added diagnostic sensors section
-  * Improved data cleaning and organization
-  * Enhanced example data with complete attribute descriptions
-  * Added discovery tools for development
+  * Added comprehensive sensor documentation
+  * Enhanced data cleaning and organization
+  * Improved example data for development
+  * Added discovery tools for debugging
+  
+- 0.2.0 (2025-10-02)
+  * WebSocket support for real-time updates
+  * Type hints and dataclass models
+  * Enhanced error handling and logging
+  * HACS compatibility improvements
+  
+- 0.1.0 (2025-06-12)
+  * Initial release based on Hydrolink-Home-Status
+  * Basic API implementation and device data retrieval
 
 License: MIT
 See LICENSE file in the project root for full license information.
 
-Typical usage example:
-
+Example Usage:
+    ```python
+    # Initialize and authenticate
     api = HydroLinkApi("user@example.com", "password")
-    api.login()
-    data = api.get_data()
+    success = api.login()
+    
+    # Get device data with real-time updates
+    devices = api.get_data()
+    
+    # Trigger manual regeneration
+    api.trigger_regeneration(device_id)
+    ```
 """
 
 from dataclasses import dataclass
@@ -72,18 +81,7 @@ _LOGGER = logging.getLogger(__name__)
 
 @dataclass
 class Device:
-    """Represents a HydroLink device with its core properties.
-    
-    This dataclass contains the essential information for a HydroLink water softener
-    device, including identification, user-friendly naming, system classification,
-    and the complete property set from the API.
-    
-    Attributes:
-        id: Unique device identifier from the HydroLink API
-        nickname: User-defined friendly name for the device  
-        system_type: Classification of the water softener system
-        properties: Complete dictionary of all device properties from API
-    """
+    """Represents a HydroLink device."""
 
     id: str
     nickname: str
@@ -91,42 +89,14 @@ class Device:
     properties: Dict[str, Any]
 
 class HydroLinkApi:
-    """HydroLink API interface for EcoWater water softener monitoring.
+    """HydroLink API interface.
 
-    This class provides a comprehensive interface to the EcoWater HydroLink cloud service,
-    enabling authentication, device data retrieval, real-time updates via WebSocket,
-    and remote control operations like triggering regeneration cycles.
+    Handles authentication and data retrieval from HydroLink water softeners.
+    Provides real-time updates through WebSocket connections.
 
-    The API uses a two-phase approach for data retrieval:
-    1. Initial HTTP request to get device list and basic data
-    2. WebSocket connections to trigger fresh data updates and ensure current values
-
-    Key Features:
-        - Secure authentication with session management
-        - Real-time data updates via WebSocket connections  
-        - Automatic reconnection and error recovery
-        - Support for multiple connected devices
-        - Remote regeneration trigger capability
-        - Comprehensive error handling and logging
-
-    Usage Example:
-        >>> api = HydroLinkApi("user@example.com", "password")
-        >>> api.login()
-        >>> data = api.get_data()
-        >>> api.trigger_regeneration("device_id")
-
-    Attributes:
-        BASE_URL: EcoWater HydroLink API base URL
-        WS_BASE_URL: WebSocket base URL for real-time updates
-        
-    Args:
-        email: HydroLink account email address
-        password: HydroLink account password
-        
-    Raises:
-        InvalidAuth: When authentication fails or expires
-        CannotConnect: When network connectivity issues occur
-        TimeoutError: When operations exceed timeout limits
+    Parameters:
+        email (str): HydroLink account email
+        password (str): HydroLink account password
     """
 
     BASE_URL = "https://api.hydrolinkhome.com/v1"

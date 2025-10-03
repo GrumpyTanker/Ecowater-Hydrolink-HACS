@@ -2,39 +2,37 @@
 """
 EcoWater HydroLink Home Assistant Integration
 
-Main module for the Home Assistant integration with EcoWater HydroLink.
-Handles component setup, config flow, and service registration.
+Main module for the Home Assistant integration with EcoWater HydroLink water softeners.
+Provides real-time monitoring, control, and alerting capabilities through the HydroLink
+cloud service. Handles component setup, config flow, service registration, and data
+coordination.
 
-Author: GrumpyTanker
+This integration offers comprehensive monitoring of water usage, salt levels, system
+performance, regeneration status, and maintenance alerts with real-time WebSocket updates.
+
+Author: GrumpyTanker + AI Assistant
 Created: June 12, 2025
 Updated: October 3, 2025
-Version: 1.1.0
 
-Changelog:
-- 1.1.0 (2025-10-03)
-  * Enhanced test coverage to 58% (55+ comprehensive tests)
-  * Fixed HACS validation issues and CI/CD pipeline
-  * Improved error handling and WebSocket stability
-  * Updated for Home Assistant 2024.10.0+ and Python 3.12+
-  * Repository cleanup and documentation improvements
-
-- 1.0.0 (2025-10-02)
-  * Initial HACS-compatible release
-  * Complete restructure for HACS compliance
-  * Added comprehensive testing setup
-  * Updated to MIT license
-  * Improved documentation and translations
-
-- 0.2.0 (2025-06-12)
+Version History:
+- 1.0.0 (2025-10-03)
+  * HACS compatibility and validation
+  * Enhanced documentation and comments
+  * Improved error handling and logging
+  * Added comprehensive test coverage
+  * WebSocket real-time updates
+  * Service calls for manual regeneration
+  * 30+ sensors across 8 categories
+  
+- 0.2.0 (2025-10-02)
   * Added service registration
   * Improved error handling
-  * Added type hints
-  * Added data update coordinator
-
+  * Added type hints and data coordinator
+  * Enhanced data organization
+  
 - 0.1.0 (2025-06-12)
-  * Initial release
-  * Basic integration setup
-  * Config flow implementation
+  * Initial release based on Hydrolink-Home-Status
+  * Basic integration setup and config flow
 
 License: MIT
 See LICENSE file in the project root for full license information.

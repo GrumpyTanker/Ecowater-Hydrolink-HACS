@@ -3,80 +3,79 @@
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg)](https://github.com/hacs/integration)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Validate](https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS/workflows/Validate/badge.svg)](https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS/actions)
-[![HA Core Version](https://img.shields.io/badge/Home%20Assistant-2024.10.0-blue.svg)](https://www.home-assistant.io)
-[![Python Version](https://img.shields.io/badge/Python-3.12%2B-blue.svg)](https://www.python.org)
-[![Test Coverage](https://img.shields.io/badge/Coverage-58%25-yellow.svg)](https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS)
+[![Run Tests](https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS/workflows/Run%20Tests/badge.svg)](https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS/actions)
+[![HA Core Version](https://img.shields.io/badge/Home%20Assistant-2024.10.0+-blue.svg)](https://www.home-assistant.io)
 [![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Python Version](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org)
 
-A Home Assistant integration for EcoWater's HydroLink connected water softeners. Monitor your water softener's performance, water usage, salt levels, and more directly in Home Assistant.
+A Home Assistant integration for EcoWater's HydroLink connected water softeners. Monitor your water softener's performance, water usage, salt levels, and more directly in Home Assistant with real-time updates.
 
-This integration is a HACS-compatible adaptation of the original [Hydrolink-Home-Status](https://github.com/GrumpyTanker/Hydrolink-Home-Status) project, enhanced with improved data organization, real-time updates via WebSocket, comprehensive error handling, and extensive test coverage.
+This integration is a HACS-compatible adaptation of the original [Hydrolink-Home-Status](https://github.com/GrumpyTanker/Hydrolink-Home-Status) project, enhanced with improved data organization, real-time WebSocket updates, comprehensive error handling, and full Home Assistant integration.
 
-## ✨ Features
+## Key Features
 
-- **Real-time monitoring** of your EcoWater water softener with WebSocket updates
-- **Comprehensive sensor coverage** with 8 distinct categories
-- **Service integration** for triggering manual regeneration cycles
-- **Robust error handling** with automatic reconnection
-- **Extensive test coverage** (58% with 55+ comprehensive tests)
-- **HACS compatibility** with official Home Assistant branding
-- **Modern async architecture** optimized for Home Assistant 2024.10.0+
+- 🔄 Real-time monitoring via WebSocket connections
+- 📊 30+ sensors across 8 comprehensive categories
+- 🔧 Service calls for manual regeneration control
+- 🏠 Full Home Assistant integration with proper device modeling
+- 📈 Historical data tracking and analytics
+- 🚨 Alert notifications for system issues
+- 🔒 Secure authentication with EcoWater cloud services
+- 📱 Mobile-friendly interface
 
-## 📋 Prerequisites
+## Sensor Categories
 
-- Home Assistant 2024.10.0 or newer  
-- Python 3.12+ (for local development and testing)
-- EcoWater HydroLink account with active connected device
-- Stable internet connection for WebSocket communication
+### Basic System Information
+- Online Status, Model, Device Name, Serial Number
 
-## 🚀 Installation
+### Water Usage Monitoring  
+- Current Flow, Daily/Weekly/Monthly Usage, Peak Flow Statistics
 
-### HACS Installation (Recommended)
+### Salt Management
+- Salt Level, Days Remaining, Usage Statistics, Efficiency Tracking
 
-1. **Install HACS** if you haven't already
-2. **Add this repository** to HACS:
-   - Go to HACS → Integrations
-   - Click the three dots (⋮) in the top right
-   - Select "Custom repositories"
-   - Add `https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS`
-   - Category: Integration
-3. **Install the integration**:
-   - Search for "EcoWater HydroLink" in HACS
-   - Click Install
-   - Restart Home Assistant
-4. **Configure the integration**:
+### System Performance
+- Capacity Remaining, Water Hardness, Treatment Statistics
+
+### Regeneration Management
+- Current Status, History, Scheduling, Manual Control
+
+### Critical Alerts
+- Low Salt Warnings, System Errors, Flow Anomalies, Leak Detection
+
+### Signal and Connection
+- WiFi Strength, Connection Quality, Network Status
+
+### Maintenance Information
+- Service Reminders, Operation Statistics, System Health
+
+## Installation
+
+### HACS Installation (Preferred)
+1. Ensure you have [HACS](https://hacs.xyz) installed in your Home Assistant instance
+2. Search for "EcoWater HydroLink" in HACS
+3. Click Install
+4. Restart Home Assistant
+5. Add the integration via the Home Assistant UI:
    - Go to Settings → Devices & Services
-   - Click "+ ADD INTEGRATION"
+   - Click the "+ ADD INTEGRATION" button
    - Search for "EcoWater HydroLink"
-   - Enter your HydroLink credentials when prompted
+6. Enter your HydroLink credentials when prompted
 
 ### Manual Installation
+1. Download the latest release from the GitHub repository
+2. Copy the `custom_components/hydrolink` directory to your Home Assistant's `custom_components` directory
+3. Restart Home Assistant
 
-1. **Download the latest release** from the [GitHub repository](https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS/releases)
-2. **Extract and copy** the `custom_components/hydrolink` directory to your Home Assistant's `custom_components` directory
-3. **Restart Home Assistant**
-4. **Add the integration** via Settings → Devices & Services → Add Integration
+## Configuration
 
-## ⚙️ Configuration
+1. Go to Settings → Devices & Services in Home Assistant
+2. Click "Add Integration"
+3. Search for "HydroLink"
+4. Enter your HydroLink email and password
+5. Click "Submit"
 
-The integration uses a simple configuration flow:
-
-1. **Navigate to integrations**: Settings → Devices & Services
-2. **Add integration**: Click "Add Integration" 
-3. **Search for HydroLink**: Type "EcoWater HydroLink" or "HydroLink"
-4. **Enter credentials**: Provide your HydroLink email and password
-5. **Complete setup**: Click "Submit" and the integration will automatically discover your devices
-
-### Configuration Options
-
-- **Email**: Your EcoWater HydroLink account email
-- **Password**: Your EcoWater HydroLink account password
-- **Automatic Updates**: Data refreshes every 30 seconds via WebSocket
-- **Device Discovery**: Automatically detects all connected HydroLink devices
-
-## 🌊 Available Sensors
-
-The integration provides comprehensive monitoring across 8 categories with 30+ sensors:
+## Available Sensors
 
 ### Water Usage and Flow
 | Sensor | Description | Unit |
@@ -135,211 +134,65 @@ The integration provides comprehensive monitoring across 8 categories with 30+ s
 | Power Outage Count | Number of power failures | Count |
 | Service Due | Months until service | Months |
 
-## 🔧 Services
-
-### `hydrolink.trigger_regeneration`
-
-Manually trigger a regeneration cycle on your water softener.
-
-**Parameters:**
-- `device_id` (required): The device ID of your water softener
-
-**Example usage:**
-```yaml
-service: hydrolink.trigger_regeneration
-data:
-  device_id: "your_device_id_here"
-```
-
-## 🛠️ Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
-#### 🚫 Cannot Connect Error
-- **Check internet connection**: Ensure stable connection to EcoWater servers
-- **Verify credentials**: Double-check email/password in HydroLink app
-- **Service status**: Check if HydroLink service is operational
-- **Firewall**: Ensure WebSocket connections (WSS) are allowed
+1. **Cannot Connect Error**
+   - Check your internet connection
+   - Verify your HydroLink credentials
+   - Ensure the HydroLink service is operational
 
-#### 🔐 Authentication Failed  
-- **Password reset**: Try resetting your HydroLink password
-- **App login**: Test credentials in the official HydroLink mobile app
-- **Account status**: Verify your HydroLink account is active
-- **Special characters**: Ensure password doesn't contain problematic characters
+2. **Authentication Failed**
+   - Double-check your email and password
+   - Try logging out and back in to the HydroLink app
+   - Reset your HydroLink password if needed
 
-#### 📊 No Data Updates
-- **Device connectivity**: Check device connection in HydroLink app
-- **Integration reload**: Reload the integration in Home Assistant
-- **WebSocket issues**: Check logs for WebSocket connection errors
-- **Device status**: Ensure your water softener is online and communicating
+3. **No Data Updates**
+   - Check your device's connection to HydroLink
+   - Verify the integration is properly configured
+   - Restart Home Assistant
 
-#### ⚡ Frequent Disconnections
-- **Network stability**: Check for intermittent internet issues  
-- **Router settings**: Verify WebSocket traffic isn't being blocked
-- **Distance/signal**: Ensure water softener has good WiFi signal
-- **Power issues**: Check for power interruptions to the device
+### Debug Logging
 
-### Advanced Debugging
+To enable debug logging for the integration:
 
-#### Enable Debug Logging
-
-Add the following to your `configuration.yaml`:
-
+1. Add the following to your `configuration.yaml`:
 ```yaml
 logger:
   default: info
   logs:
     custom_components.hydrolink: debug
-    custom_components.hydrolink.api: debug
-    custom_components.hydrolink.coordinator: debug
 ```
+2. Restart Home Assistant
+3. Check the logs for detailed information
 
-#### Check Integration Health
+## Contributing
 
-1. **Go to**: Settings → Devices & Services → EcoWater HydroLink
-2. **View device**: Click on your water softener device  
-3. **Check entities**: Verify all sensors are available and updating
-4. **Review diagnostics**: Look for error states or unknown values
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-#### Log Analysis
+## Version History
 
-Common log messages and their meanings:
+### Version 1.0.0 (October 2, 2025)
+- Initial HACS-compatible release
+- Complete restructure for HACS compatibility
+- Updated to MIT license
+- Added comprehensive testing setup
+- Improved documentation and translations
+- Added proper branding assets
+- Configured CI/CD with GitHub Actions
+- Updated minimum Home Assistant version to 2024.10.0
 
-- `"HydroLink login successful"`: Authentication working properly
-- `"WebSocket connection established"`: Real-time updates active  
-- `"Authentication expired"`: Credentials need refresh
-- `"Connection timeout"`: Network or service connectivity issues
-- `"Device data updated"`: Successful data refresh from API
-
-## 🧪 Development & Testing
-
-This integration includes comprehensive test coverage:
-
-- **55+ test cases** covering all major functionality
-- **58% code coverage** with focus on critical paths
-- **API testing** with mocked responses and error scenarios  
-- **Configuration flow testing** for setup validation
-- **Coordinator testing** for data update reliability
-- **Service testing** for regeneration trigger functionality
-
-### Running Tests Locally
-
-```bash
-# Install development dependencies
-pip install -r requirements_test.txt
-
-# Run all tests with coverage
-python -m pytest tests/ --cov=custom_components --cov-report=term-missing
-
-# Run specific test categories
-python -m pytest tests/test_api.py -v
-python -m pytest tests/test_config_flow.py -v
-```
-
-## 🤝 Contributing
-
-Contributions are welcome! Please follow these steps:
-
-1. **Fork the repository**
-2. **Create a feature branch**: `git checkout -b feature/amazing-feature`
-3. **Make your changes** with appropriate tests
-4. **Run the test suite**: `python -m pytest tests/`
-5. **Update documentation** as needed
-6. **Commit your changes**: `git commit -m 'Add amazing feature'`
-7. **Push to the branch**: `git push origin feature/amazing-feature`
-8. **Open a Pull Request**
-
-### Development Guidelines
-
-- Follow [Home Assistant development standards](https://developers.home-assistant.io/)
-- Maintain or improve test coverage
-- Update documentation for new features
-- Use type hints and proper docstrings
-- Follow existing code style and patterns
-
-## 📚 Version History
-
-### Version 1.1.0 (October 3, 2025) 🎉
-#### 🐛 **Bug Fixes & Stability**
-- **Fixed HACS validation issues**: Removed problematic brands directory structure
-- **Resolved CI/CD pipeline**: Fixed GitHub Actions workflow with Python 3.12+ compatibility  
-- **Socket blocking fixes**: Improved test reliability with proper request mocking
-- **API interface corrections**: Fixed method naming and response structure handling
-
-#### ✨ **Enhancements**
-- **Official EcoWater branding**: Downloaded proper icons from Home Assistant brands repository
-- **Enhanced test coverage**: Expanded from 22 to 55+ comprehensive tests (58% coverage)
-- **Improved error handling**: Better exception management and user feedback
-- **Updated Python compatibility**: Full support for Python 3.12+ and Home Assistant 2024.10.0+
-
-#### 🧹 **Maintenance**  
-- **Repository cleanup**: Removed build artifacts, cache files, and unused assets
-- **Documentation improvements**: Comprehensive README updates with troubleshooting guides
-- **Code quality**: Enhanced type hints, docstrings, and inline documentation
-- **CI/CD optimization**: Streamlined testing and validation workflows
-
-#### 🔧 **Technical Improvements**
-- **Device constructor fixes**: Proper dataclass instantiation with keyword arguments
-- **WebSocket stability**: Better connection management and error recovery
-- **Test infrastructure**: Comprehensive API, coordinator, and service testing
-- **Coverage goals**: Achieved sustainable 58% test coverage with quality focus
-
-### Version 1.0.0 (October 2, 2025) 🚀
-#### 🎯 **Initial HACS Release**
-- **Complete HACS compatibility**: Full restructure for Home Assistant Community Store
-- **Modern architecture**: Async-first design optimized for HA 2024.10.0+
-- **License update**: Migrated to MIT License for better compatibility
-- **Professional testing**: Comprehensive test setup with pytest and coverage reporting
-
-#### 📦 **Core Features**
-- **Multi-sensor support**: 30+ sensors across 8 categories for complete monitoring
-- **Real-time updates**: WebSocket integration for live data streaming  
-- **Service integration**: Manual regeneration trigger capability
-- **Robust error handling**: Graceful failure management and recovery
-- **Device discovery**: Automatic detection of connected HydroLink devices
-
-#### 🎨 **User Experience**
-- **Improved documentation**: Installation guides, troubleshooting, and examples
-- **Internationalization**: English translations with extensible i18n framework
-- **Professional branding**: Official EcoWater icons and consistent styling
-- **Configuration flow**: User-friendly setup process with validation
-
-#### 🔧 **Technical Foundation**
-- **GitHub Actions CI/CD**: Automated testing, HACS validation, and quality checks
-- **Type safety**: Comprehensive type hints throughout the codebase
-- **Modern dependencies**: Updated for current Home Assistant ecosystem
-- **Code organization**: Clean separation of concerns and modular design
-
-## ⚖️ License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
-- **EcoWater Systems**: For providing the HydroLink platform and API access
-- **Home Assistant Community**: For their continuous support, feedback, and development standards
-- **Original Project**: Based on the foundational work of [Hydrolink-Home-Status](https://github.com/GrumpyTanker/Hydrolink-Home-Status)
-- **Contributors**: All developers who have contributed code, testing, and documentation improvements
-- **HACS Team**: For providing the platform that makes community integrations accessible
+- Thanks to EcoWater for providing the HydroLink platform
+- Based on the original [Hydrolink-Home-Status](https://github.com/GrumpyTanker/Hydrolink-Home-Status) project
 
-## ⚠️ Legal & Trademark Notice
+## Trademark Legal Notice
 
-**This project is not affiliated with, endorsed by, or connected to EcoWater Systems LLC.**
-
-- **EcoWater**, **HydroLink**, and related logos are trademarks of EcoWater Systems LLC
-- These trademarks are used for reference and identification purposes only
-- This integration is an independent, community-driven project
-- Use of trademarks falls under fair use for descriptive and compatibility purposes
-- No endorsement by EcoWater Systems LLC is implied or claimed
-
----
-
-## 🔗 Quick Links
-
-- [**Report Issues**](https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS/issues)
-- [**Request Features**](https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS/issues/new?template=feature_request.md)
-- [**View Releases**](https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS/releases)
-- [**Development Guide**](https://developers.home-assistant.io/)
-- [**HACS Documentation**](https://hacs.xyz/)
-
-**⭐ If this integration helps you monitor your water softener, please consider giving it a star on GitHub!**
+This project is not affiliated with, endorsed by, or connected to EcoWater Systems LLC. EcoWater, HydroLink, and any related logos are trademarks of EcoWater Systems LLC. These trademarks are used for reference only.
+- Thanks to the Home Assistant community for their support and feedback

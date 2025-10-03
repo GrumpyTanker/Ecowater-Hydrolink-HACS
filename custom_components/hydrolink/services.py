@@ -1,31 +1,46 @@
 # -*- coding: utf-8 -*-
 """
-EcoWater HydroLink Services
+EcoWater HydroLink Services Platform
 
-Implements service calls for the HydroLink integration, including
-regeneration triggering and other device controls.
+Implements service calls for the HydroLink integration, providing user-accessible
+control functions for EcoWater water softener devices. Enables manual regeneration
+triggering and other device management capabilities through Home Assistant services.
 
-Author: GrumpyTanker
+Service Capabilities:
+- Manual regeneration initiation for immediate salt treatment
+- Device control and management functions
+- Integration with Home Assistant automation and scripts
+- Comprehensive error handling and validation
+- Secure API communication with proper authentication
+
+Available Services:
+- trigger_regeneration: Manually start a regeneration cycle
+- Future services: Schedule management, maintenance reminders, etc.
+
+This module bridges user actions in Home Assistant with the HydroLink cloud API,
+ensuring secure and reliable device control while maintaining proper error handling
+and user feedback.
+
+Author: GrumpyTanker + AI Assistant
 Created: June 12, 2025
 Updated: October 3, 2025
-Version: 1.1.0
 
-Changelog:
-- 1.1.0 (2025-10-03)
-  * Enhanced test coverage with comprehensive service testing
-  * Improved error handling for device lookup and API failures
-  * Better validation of device registry entries and config entries
-  * Updated for Home Assistant 2024.10.0+ and Python 3.12+
-
-- 1.0.0 (2025-10-02)
-  * Initial HACS-compatible release
-  * Added regeneration service implementation
-  * Improved error handling and logging
-  * Added type hints and documentation
-
+Version History:
+- 1.0.0 (2025-10-03)
+  * Production release with enhanced service reliability
+  * Improved error handling and user feedback
+  * Enhanced validation and security measures
+  * Better integration with Home Assistant service system
+  
+- 0.2.0 (2025-10-02)
+  * Added manual regeneration service implementation
+  * Improved error handling and validation
+  * Added comprehensive type hints
+  * Enhanced logging and debugging
+  
 - 0.1.0 (2025-06-12)
-  * Initial release
-  * Basic service registration
+  * Initial release with basic service framework
+  * Service registration and setup infrastructure
 
 License: MIT
 See LICENSE file in the project root for full license information.
