@@ -28,7 +28,8 @@ def discover():
     data = api.get_data()
 
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    output_file = os.path.join(OUTPUT_DIR, f"discovery_{datetime.now().strftime(\"%Y%m%d_%H%M%S\")}.json")
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    output_file = os.path.join(OUTPUT_DIR, f"discovery_{timestamp}.json")
     
     with open(output_file, "w") as f:
         json.dump(data, f, indent=2)

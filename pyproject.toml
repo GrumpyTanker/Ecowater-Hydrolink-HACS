@@ -4,13 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "hydrolink"
-version = "1.0.0"
+version = "1.1.0"
 authors = [
     { name = "GrumpyTanker" },
 ]
 description = "EcoWater HydroLink Integration for Home Assistant"
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.12"
 license = "MIT"
 dependencies = [
     "requests>=2.31.0",

@@ -24,10 +24,14 @@ This integration is a HACS-compatible adaptation of the original [Hydrolink-Home
   - Signal and Connection (WiFi Strength, Connection Quality)
   - Maintenance Information (Service Reminders, Operation Stats)
 
-## Installation
+## Prerequisites
 
+- Home Assistant 2024.10.0 or newer
+- Python 3.12+ (for local development)
+- EcoWater HydroLink account with active device
+
+## Installation
 ### HACS Installation (Preferred)
-1. Ensure you have [HACS](https://hacs.xyz) installed in your Home Assistant instance
 2. Search for "EcoWater HydroLink" in HACS
 3. Click Install
 4. Restart Home Assistant
@@ -147,6 +151,14 @@ logger:
 Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Version History
+
+### Version 1.1.0 (October 3, 2025)
+- **Fixed HACS validation issues**: Removed problematic brands directory
+- **Added official EcoWater branding**: Downloaded icons from Home Assistant brands repository
+- **Updated Python compatibility**: Now requires Python 3.12+ for Home Assistant 2024.10.0+ compatibility
+- **Improved CI/CD**: Fixed GitHub Actions workflow with proper Python version
+- **Cleaned up repository**: Removed build artifacts and cache files
+- **Enhanced documentation**: Updated installation and troubleshooting guides
 
 ### Version 1.0.0 (October 2, 2025)
 - Initial HACS-compatible release

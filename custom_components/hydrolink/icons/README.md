@@ -1,3 +1,3 @@
-The EcoWater logo (EcoWater_Logo.png) is a trademark of EcoWater Systems LLC and is included here for reference purposes only. 
+The EcoWater icons and logos (icon.png, icon@2x.png, logo.png, logo@2x.png) are trademarks of EcoWater Systems LLC and are sourced from the official Home Assistant brands repository at https://github.com/home-assistant/brands/tree/master/custom_integrations/ecowater_softener.
 
-The custom icons (icon.svg) are original designs created for this integration and are released under the same MIT license as the rest of the codebase.
+These assets are included here for local use by the HydroLink integration and are subject to EcoWater's trademark and usage policies.
