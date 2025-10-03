@@ -9,7 +9,7 @@
   "dependencies": [],
   "documentation": "https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS",
   "integration_type": "hub",
-  "iot_class": "cloud_polling",
+  "iot_class": "cloud_push",
   "issue_tracker": "https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS/issues",
   "quality_scale": "silver",
   "requirements": [

@@ -310,6 +310,18 @@ Contributions are welcome! Please follow these steps:
 - **Modern dependencies**: Updated for current Home Assistant ecosystem
 - **Code organization**: Clean separation of concerns and modular design
 
+## 🤝 Contributing
+
+Contributions are welcome! Please read our [Contributing Guidelines](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
+
+### How to Contribute
+- **Report Bugs**: Use our [bug report template](.github/ISSUE_TEMPLATE/bug_report.yml)
+- **Suggest Features**: Use our [feature request template](.github/ISSUE_TEMPLATE/feature_request.yml)
+- **Submit Code**: Fork the repo and create a pull request
+- **Improve Docs**: Documentation improvements are always appreciated
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for more details.
+
 ## ⚖️ License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
@@ -336,10 +348,17 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔗 Quick Links
 
-- [**Report Issues**](https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS/issues)
-- [**Request Features**](https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS/issues/new?template=feature_request.md)
-- [**View Releases**](https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS/releases)
-- [**Development Guide**](https://developers.home-assistant.io/)
-- [**HACS Documentation**](https://hacs.xyz/)
+### For Users
+- [**Report Issues**](https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS/issues/new?template=bug_report.yml) - Report bugs using our bug report template
+- [**Request Features**](https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS/issues/new?template=feature_request.yml) - Suggest new features or improvements
+- [**View Releases**](https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS/releases) - See what's new in each version
+- [**Changelog**](CHANGELOG.md) - Detailed version history
+- [**HACS Documentation**](https://hacs.xyz/) - Learn more about HACS
+
+### For Contributors
+- [**Contributing Guidelines**](CONTRIBUTING.md) - How to contribute to this project
+- [**Code of Conduct**](CODE_OF_CONDUCT.md) - Our community standards
+- [**Security Policy**](SECURITY.md) - How to report security vulnerabilities
+- [**Development Guide**](https://developers.home-assistant.io/) - Home Assistant development resources
 
 **⭐ If this integration helps you monitor your water softener, please consider giving it a star on GitHub!**
