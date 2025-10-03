@@ -1,0 +1,69 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "title": "Connect to HydroLink",
+                "description": "Please enter your HydroLink email and password",
+                "data": {
+                    "email": "Email",
+                    "password": "Password"
+                }
+            }
+        },
+        "error": {
+            "cannot_connect": "Failed to connect to HydroLink. Please check your internet connection.",
+            "invalid_auth": "Invalid email or password.",
+            "unknown": "Unexpected error occurred."
+        },
+        "abort": {
+            "already_configured": "This HydroLink account is already configured."
+        }
+    },
+    "entity": {
+        "binary_sensor": {
+            "connection_status": {
+                "name": "Connection Status",
+                "state": {
+                    "on": "Online",
+                    "off": "Offline"
+                }
+            },
+            "regeneration_status": {
+                "name": "Regeneration Status",
+                "state": {
+                    "on": "Regenerating",
+                    "off": "Idle"
+                }
+            }
+        },
+        "sensor": {
+            "salt_level": {
+                "name": "Salt Level",
+                "state": {
+                    "ok": "OK",
+                    "low": "Low",
+                    "very_low": "Very Low"
+                }
+            },
+            "water_flow": {
+                "name": "Water Flow"
+            },
+            "total_water_used": {
+                "name": "Total Water Used"
+            },
+            "days_since_regeneration": {
+                "name": "Days Since Regeneration"
+            }
+        }
+    },
+    "options": {
+        "step": {
+            "init": {
+                "title": "HydroLink Options",
+                "data": {
+                    "scan_interval": "Update interval (seconds)"
+                }
+            }
+        }
+    }
+}
