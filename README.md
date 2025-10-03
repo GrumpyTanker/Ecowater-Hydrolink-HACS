@@ -19,7 +19,7 @@ This integration is a HACS-compatible adaptation of the original [Hydrolink-Home
 - **Service integration** for triggering manual regeneration cycles
 - **Robust error handling** with automatic reconnection
 - **Extensive test coverage** (58% with 55+ comprehensive tests)
-- **HACS compatibility** with official Home Assistant branding
+- **HACS compatibility** for easy installation and updates
 - **Modern async architecture** optimized for Home Assistant 2024.10.0+
 
 ## 📋 Prerequisites
@@ -261,13 +261,12 @@ Contributions are welcome! Please follow these steps:
 
 ### Version 1.1.0 (October 3, 2025) 🎉
 #### 🐛 **Bug Fixes & Stability**
-- **Fixed HACS validation issues**: Removed problematic brands directory structure
+- **Fixed HACS validation issues**: Resolved CI/CD pipeline issues
 - **Resolved CI/CD pipeline**: Fixed GitHub Actions workflow with Python 3.12+ compatibility  
 - **Socket blocking fixes**: Improved test reliability with proper request mocking
 - **API interface corrections**: Fixed method naming and response structure handling
 
 #### ✨ **Enhancements**
-- **Official EcoWater branding**: Downloaded proper icons from Home Assistant brands repository
 - **Enhanced test coverage**: Expanded from 22 to 55+ comprehensive tests (58% coverage)
 - **Improved error handling**: Better exception management and user feedback
 - **Updated Python compatibility**: Full support for Python 3.12+ and Home Assistant 2024.10.0+
@@ -301,7 +300,6 @@ Contributions are welcome! Please follow these steps:
 #### 🎨 **User Experience**
 - **Improved documentation**: Installation guides, troubleshooting, and examples
 - **Internationalization**: English translations with extensible i18n framework
-- **Professional branding**: Official EcoWater icons and consistent styling
 - **Configuration flow**: User-friendly setup process with validation
 
 #### 🔧 **Technical Foundation**
