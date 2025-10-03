@@ -24,8 +24,7 @@ def mock_config_entry() -> ConfigEntry:
         data=MOCK_CONFIG,
         source="user",
         options={},
-        unique_id="test@example.com",
-        discovery_keys=None
+        unique_id="test@example.com"
     )
 
 @pytest.fixture
