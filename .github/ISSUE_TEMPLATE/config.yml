@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Home Assistant Community Forum
+    url: https://community.home-assistant.io/
+    about: Please ask questions and discuss topics related to this integration in the Home Assistant Community Forum
+  - name: Documentation
+    url: https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS#readme
+    about: Read the full documentation and setup guide
