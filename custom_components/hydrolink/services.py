@@ -5,19 +5,27 @@ EcoWater HydroLink Services
 Implements service calls for the HydroLink integration, including
 regeneration triggering and other device controls.
 
-Author: GrumpyTanker + AI
+Author: GrumpyTanker
 Created: June 12, 2025
-Updated: October 2, 2025
+Updated: October 3, 2025
+Version: 1.1.0
 
 Changelog:
+- 1.1.0 (2025-10-03)
+  * Enhanced test coverage with comprehensive service testing
+  * Improved error handling for device lookup and API failures
+  * Better validation of device registry entries and config entries
+  * Updated for Home Assistant 2024.10.0+ and Python 3.12+
+
+- 1.0.0 (2025-10-02)
+  * Initial HACS-compatible release
+  * Added regeneration service implementation
+  * Improved error handling and logging
+  * Added type hints and documentation
+
 - 0.1.0 (2025-06-12)
   * Initial release
   * Basic service registration
-  
-- 0.2.0 (2025-10-02)
-  * Added regeneration service
-  * Improved error handling
-  * Added type hints
 
 License: MIT
 See LICENSE file in the project root for full license information.

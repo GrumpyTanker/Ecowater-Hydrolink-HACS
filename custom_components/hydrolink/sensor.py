@@ -6,24 +6,30 @@ Implements the sensor platform for monitoring EcoWater HydroLink devices.
 This module defines all available sensors and their configurations based on
 the actual device capabilities, using standardized imperial units.
 
-Author: GrumpyTanker + AI
+Author: GrumpyTanker
 Created: June 12, 2025
-Updated: October 2, 2025
+Updated: October 3, 2025
+Version: 1.1.0
 
 Features:
-- Comprehensive monitoring of EcoWater water softener systems
-- Standardized imperial units (gallons, GPM, pounds, grains)
-- Real-time water usage and flow monitoring
-- Salt level and usage tracking
-- System performance metrics
-- Alert and maintenance status
-- Device health and connectivity monitoring
+- Comprehensive monitoring of EcoWater water softener systems (30+ sensors)
+- Standardized imperial units (gallons, GPM, pounds, grains) 
+- Real-time water usage and flow monitoring with WebSocket updates
+- Salt level and usage tracking with predictive maintenance
+- System performance metrics and regeneration monitoring
+- Alert and maintenance status with multiple alert types
+- Device health and connectivity monitoring with signal strength
 
 Changelog:
-- 0.1.0 (2025-06-12)
-  * Initial release with basic sensor support
-  
-- 0.2.0 (2025-10-02)
+- 1.1.0 (2025-10-03)
+  * Enhanced test coverage with comprehensive sensor testing
+  * Improved sensor entity creation and attribute handling
+  * Better device info and unique ID generation
+  * Updated for Home Assistant 2024.10.0+ and Python 3.12+
+
+- 1.0.0 (2025-10-02)
+  * Initial HACS-compatible release
+  * Complete sensor platform implementation with 30+ sensors
   * Added comprehensive sensor categories
   * Standardized on imperial units
   * Improved entity categorization
