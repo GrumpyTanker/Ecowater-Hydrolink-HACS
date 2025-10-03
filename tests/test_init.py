@@ -16,16 +16,31 @@ MOCK_CONFIG = {
 @pytest.fixture
 def mock_config_entry() -> ConfigEntry:
     """Create a mock config entry."""
-    return ConfigEntry(
-        version=1,
-        minor_version=1,
-        domain=DOMAIN,
-        title="HydroLink Test",
-        data=MOCK_CONFIG,
-        source="user",
-        options={},
-        unique_id="test@example.com"
-    )
+    # Handle different Home Assistant versions that may or may not require discovery_keys
+    try:
+        return ConfigEntry(
+            version=1,
+            minor_version=1,
+            domain=DOMAIN,
+            title="HydroLink Test",
+            data=MOCK_CONFIG,
+            source="user",
+            options={},
+            unique_id="test@example.com",
+            discovery_keys=None
+        )
+    except TypeError:
+        # Fallback for older HA versions that don't support discovery_keys
+        return ConfigEntry(
+            version=1,
+            minor_version=1,
+            domain=DOMAIN,
+            title="HydroLink Test",
+            data=MOCK_CONFIG,
+            source="user",
+            options={},
+            unique_id="test@example.com"
+        )
 
 @pytest.fixture
 def mock_coordinator(hass: HomeAssistant, mock_config_entry: ConfigEntry) -> Mock:
