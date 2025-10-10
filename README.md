@@ -77,6 +77,10 @@ This integration is a HACS-compatible adaptation of the original [Hydrolink-Home
 
 ## Available Sensors
 
+📋 **For complete sensor documentation, see [SENSORS.md](SENSORS.md)**
+
+The integration provides 37 comprehensive sensors organized into 7 categories. Below is a summary of the main sensors available:
+
 ### Water Usage and Flow
 | Sensor | Description | Unit |
 |--------|-------------|------|
