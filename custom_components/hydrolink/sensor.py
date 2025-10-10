@@ -152,6 +152,25 @@ DEFAULT_ENABLED_SENSORS = {
     "days_in_operation",               # Total days system has been running
     "power_outage_count",              # Number of power outages
     "service_reminder_months",         # Months until service needed
+    "time_lost_events",                # Time lost events count
+    
+    # Additional sensors enabled for debugging/inspection
+    "iron_level_tenths_ppm",           # Iron level in water
+    "tlc_avg_temp_tenths_c",           # TLC average temperature
+    "salt_effic_grains_per_lb",        # Salt efficiency
+    "salt_type_enum",                  # Salt type
+    "water_counter_gals",              # Water counter
+    "error_code",                      # Error code number
+    "service_active",                  # Service mode active
+    "product_serial_number",           # Device serial number
+    "location",                        # Device location
+    "system_type",                     # System type
+    "model_display_code",              # Model display code
+    "base_software_version",           # Base software version
+    "esp_software_part_number",        # ESP software part number
+    "regen_time_secs",                 # Regeneration time setting
+    "system_error",                    # System error status
+    "vacation_mode",                   # Vacation mode status
 }
 
 # Descriptions for each sensor
