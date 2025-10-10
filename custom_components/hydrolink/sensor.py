@@ -28,9 +28,16 @@ Sensor Categories:
 
 Author: GrumpyTanker + AI Assistant
 Created: June 12, 2025
-Updated: October 3, 2025
+Updated: October 10, 2025
 
 Version History:
+- 1.2.2 (2025-10-10)
+  * Fixed critical sensor scaling issues
+  * Added 15 new sensor definitions from API
+  * Enhanced value conversion logic for tenths, capacity, and salt values
+  * Comprehensive test coverage for all conversions
+  * Updated documentation with conversion tables
+  
 - 1.2.0 (2025-10-03)
   * Enhanced documentation and code comments
   * Improved sensor organization and categorization
