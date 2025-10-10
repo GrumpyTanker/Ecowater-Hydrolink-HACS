@@ -19,7 +19,7 @@ Key Features:
 Sensor Categories:
 1. Basic System Information - Device status, model, identifiers
 2. Water Usage Monitoring - Flow rates, consumption tracking
-3. Salt Management - Levels, efficiency, usage patterns  
+3. Salt Management - Levels, efficiency, usage patterns
 4. System Performance - Capacity, hardness, treatment metrics
 5. Regeneration Management - Status, history, scheduling
 6. Critical Alerts - Low salt, errors, flow anomalies
@@ -37,27 +37,27 @@ Version History:
   * Enhanced value conversion logic for tenths, capacity, and salt values
   * Comprehensive test coverage for all conversions
   * Updated documentation with conversion tables
-  
+
 - 1.2.0 (2025-10-03)
   * Enhanced documentation and code comments
   * Improved sensor organization and categorization
   * Version compatibility and testing improvements
   * Code quality standards and linting enhancements
   * Comprehensive error handling patterns
-  
+
 - 1.0.0 (2025-10-03)
   * Production release with 30+ comprehensive sensors
   * Enhanced categorization and entity organization
   * Improved device class assignments and units
   * Real-time WebSocket data integration
   * Comprehensive alert and maintenance tracking
-  
+
 - 0.2.0 (2025-10-02)
   * Added comprehensive sensor categories
   * Standardized imperial unit usage
   * Improved entity categorization and naming
   * Enhanced data validation and error handling
-  
+
 - 0.1.0 (2025-06-12)
   * Initial release with basic sensor support
   * Core integration with HydroLink API
@@ -74,7 +74,6 @@ from homeassistant.components.sensor import (
 )
 from homeassistant.const import (
     PERCENTAGE,
-    UnitOfPressure,
     UnitOfTemperature,
     UnitOfVolume,
     UnitOfTime,
@@ -82,7 +81,6 @@ from homeassistant.const import (
     SIGNAL_STRENGTH_DECIBELS_MILLIWATT,
 )
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
-from homeassistant.helpers.entity import EntityCategory
 
 from .const import DOMAIN
 
@@ -106,7 +104,7 @@ DEFAULT_ENABLED_SENSORS = {
     "current_time_secs",                # Current device time
     "model_description",                # Model description (EWS ERRC3702R50)
     "nickname",                         # Device nickname
-    
+
     # Water Usage and Flow Metrics (Imperial)
     "current_water_flow_gpm",           # Current water flow in GPM
     "gallons_used_today",              # Water used today in gallons
@@ -114,13 +112,13 @@ DEFAULT_ENABLED_SENSORS = {
     "total_outlet_water_gals",         # Total treated water in gallons
     "peak_water_flow_gpm",             # Peak water flow in GPM
     "treated_water_avail_gals",        # Available treated water in gallons
-    
+
     # Salt Management
     "salt_level_tenths",               # Current salt level in tenths (API value / 10 = %)
     "out_of_salt_estimate_days",       # Days until salt needed
     "avg_salt_per_regen_lbs",          # Average salt per regeneration (lbs)
     "total_salt_use_lbs",              # Total salt used (lbs)
-    
+
     # System Performance
     "capacity_remaining_percent",       # Remaining capacity percentage
     "operating_capacity_grains",        # Operating capacity in grains
@@ -128,14 +126,14 @@ DEFAULT_ENABLED_SENSORS = {
     "rock_removed_since_rech_lbs",     # Hardness removed since recharge (lbs)
     "daily_avg_rock_removed_lbs",      # Daily average hardness removed (lbs)
     "total_rock_removed_lbs",          # Total hardness removed (lbs)
-    
+
     # Regeneration Status
     "regen_status_enum",               # Current regeneration status
     "days_since_last_regen",           # Days since last regeneration
     "total_regens",                    # Total regeneration count
     "manual_regens",                   # Manual regeneration count
     "regen_time_rem_secs",             # Remaining regeneration time
-    
+
     # Critical Alerts
     "low_salt_alert",                  # Low salt warning
     "error_code_alert",                # System error alert
@@ -143,17 +141,17 @@ DEFAULT_ENABLED_SENSORS = {
     "excessive_water_use_alert",       # High water usage alert
     "floor_leak_detector_alert",       # Leak detection alert
     "service_reminder_alert",          # Service reminder alert
-    
+
     # Signal and Connection
     "rf_signal_strength_dbm",          # WiFi signal strength
     "rf_signal_bars",                  # WiFi signal quality
-    
+
     # System Stats
     "days_in_operation",               # Total days system has been running
     "power_outage_count",              # Number of power outages
     "service_reminder_months",         # Months until service needed
     "time_lost_events",                # Time lost events count
-    
+
     # Additional sensors enabled for debugging/inspection
     "iron_level_tenths_ppm",           # Iron level in water
     "tlc_avg_temp_tenths_c",           # TLC average temperature
@@ -394,7 +392,7 @@ SENSOR_DESCRIPTIONS = {
         "icon": "mdi:timer",
         "category": "REGEN",
     },
-    
+
     # ALERTS
     "low_salt_alert": {
         "name": "Low Salt Alert",
@@ -486,7 +484,7 @@ SENSOR_DESCRIPTIONS = {
         "icon": "mdi:tools",
         "category": "SYSTEM",
     },
-    
+
     # ADDITIONAL SENSORS (not enabled by default)
     "iron_level_tenths_ppm": {
         "name": "Iron Level",
@@ -635,9 +633,9 @@ async def async_setup_entry(hass, entry, async_add_entities):
         # Assuming 'demand_softener' is the target device type
         if device.get("system_type") != "demand_softener":
             continue
-        
+
         device_name = device.get("nickname", "EcoWater Softener")
-        
+
         for prop_name, prop_info in device.get("properties", {}).items():
             if isinstance(prop_info, dict) and "value" in prop_info:
                 entities.append(HydroLinkSensor(coordinator, device["id"], prop_name, device_name))
@@ -667,7 +665,7 @@ class HydroLinkSensor(CoordinatorEntity, SensorEntity):
             self._attr_name = f"{device_name} {property_name.replace('_', ' ').title()}"
 
         self._attr_unique_id = f"hydrolink_{device_id}_{property_name}"
-        
+
         # Set whether the entity should be enabled by default
         self._attr_entity_registry_enabled_default = (
             self._property_name in DEFAULT_ENABLED_SENSORS
@@ -679,7 +677,7 @@ class HydroLinkSensor(CoordinatorEntity, SensorEntity):
         for device in self.coordinator.data:
             if device["id"] == self._device_id:
                 value = device["properties"][self._property_name].get("value")
-                
+
                 # Handle numeric sensors when value is unknown
                 if (value == "unknown" and self.device_class in [
                     SensorDeviceClass.ENERGY,
@@ -690,7 +688,7 @@ class HydroLinkSensor(CoordinatorEntity, SensorEntity):
                     SensorDeviceClass.TEMPERATURE
                 ]):
                     return None
-                
+
                 # Convert values that are provided in tenths
                 # API sends values like salt_level_tenths as 750 meaning 75.0%
                 # Also applies to iron_level_tenths_ppm, capacity_remaining_percent, etc.
@@ -698,15 +696,15 @@ class HydroLinkSensor(CoordinatorEntity, SensorEntity):
                     # Handle properties with "_tenths" in the name (even if not at the end)
                     if "_tenths" in self._property_name:
                         return value / 10
-                    
+
                     # capacity_remaining_percent is also in tenths
                     if self._property_name == "capacity_remaining_percent":
                         return value / 10
-                    
+
                     # Salt values are provided in milligrams/thousandths, need to divide by 1000
                     if self._property_name in ["avg_salt_per_regen_lbs", "total_salt_use_lbs"]:
                         return value / 1000
-                    
+
                 return value
         return None
 
