@@ -144,45 +144,12 @@ DEFAULT_ENABLED_SENSORS = {
     # System Stats
     "days_in_operation",               # Total days system has been running
     "power_outage_count",              # Number of power outages
-    "service_reminder_months"          # Months until service needed
-    "service_reminder_alert",      # Service needed reminder
-    "flow_monitor_alert",         # Abnormal flow alert
-    "excessive_water_use_alert",  # High water usage alert
-    
-    # Maintenance Info
-    "service_reminder_months",    # Months until service needed
-    "days_in_operation",         # Total days system has operated
+    "service_reminder_months",         # Months until service needed
 }
 
 # Descriptions for each sensor
 SENSOR_DESCRIPTIONS = {
     # BASIC SYSTEM INFORMATION
-    "_internal_is_online": {
-        "name": "Online Status",
-        "unit": None,
-        "device_class": None,
-        "state_class": None,
-        "icon": "mdi:wifi",
-        "category": "BASIC",
-    },
-    "system_error": {
-        "name": "System Error",
-        "unit": None,
-        "device_class": None,  # Removed PROBLEM as it's no longer a valid device class
-        "state_class": None,
-        "icon": "mdi:alert",
-        "category": "BASIC",
-    },
-    "vacation_mode": {
-        "name": "Vacation Mode",
-        "unit": None,
-        "device_class": None,
-        "state_class": None,
-        "icon": "mdi:airplane",
-        "category": "BASIC",
-    },
-    
-        # BASIC SYSTEM INFORMATION
     "_internal_is_online": {
         "name": "Online Status",
         "unit": None,
@@ -492,7 +459,145 @@ SENSOR_DESCRIPTIONS = {
         "state_class": SensorStateClass.MEASUREMENT,
         "icon": "mdi:tools",
         "category": "SYSTEM",
-    }
+    },
+    
+    # ADDITIONAL SENSORS (not enabled by default)
+    "iron_level_tenths_ppm": {
+        "name": "Iron Level",
+        "unit": "ppm",
+        "device_class": None,
+        "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:test-tube",
+        "category": "PERFORMANCE",
+    },
+    "tlc_avg_temp_tenths_c": {
+        "name": "TLC Average Temperature",
+        "unit": UnitOfTemperature.CELSIUS,
+        "device_class": SensorDeviceClass.TEMPERATURE,
+        "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:thermometer",
+        "category": "SYSTEM",
+    },
+    "salt_effic_grains_per_lb": {
+        "name": "Salt Efficiency",
+        "unit": "grains/lb",
+        "device_class": None,
+        "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:percent",
+        "category": "SALT",
+    },
+    "salt_type_enum": {
+        "name": "Salt Type",
+        "unit": None,
+        "device_class": None,
+        "state_class": None,
+        "icon": "mdi:salt",
+        "category": "SALT",
+    },
+    "water_counter_gals": {
+        "name": "Water Counter",
+        "unit": UnitOfVolume.GALLONS,
+        "device_class": None,
+        "state_class": SensorStateClass.TOTAL_INCREASING,
+        "icon": "mdi:counter",
+        "category": "WATER",
+    },
+    "error_code": {
+        "name": "Error Code",
+        "unit": None,
+        "device_class": None,
+        "state_class": None,
+        "icon": "mdi:alert-octagon",
+        "category": "ALERTS",
+    },
+    "service_active": {
+        "name": "Service Mode Active",
+        "unit": None,
+        "device_class": None,
+        "state_class": None,
+        "icon": "mdi:wrench",
+        "category": "MAINTENANCE",
+    },
+    "time_lost_events": {
+        "name": "Time Lost Events",
+        "unit": None,
+        "device_class": None,
+        "state_class": SensorStateClass.TOTAL_INCREASING,
+        "icon": "mdi:clock-alert",
+        "category": "SYSTEM",
+    },
+    "product_serial_number": {
+        "name": "Serial Number",
+        "unit": None,
+        "device_class": None,
+        "state_class": None,
+        "icon": "mdi:barcode",
+        "category": "BASIC",
+    },
+    "location": {
+        "name": "Location",
+        "unit": None,
+        "device_class": None,
+        "state_class": None,
+        "icon": "mdi:map-marker",
+        "category": "BASIC",
+    },
+    "system_type": {
+        "name": "System Type",
+        "unit": None,
+        "device_class": None,
+        "state_class": None,
+        "icon": "mdi:water-pump",
+        "category": "BASIC",
+    },
+    "model_display_code": {
+        "name": "Model Display Code",
+        "unit": None,
+        "device_class": None,
+        "state_class": None,
+        "icon": "mdi:identifier",
+        "category": "BASIC",
+    },
+    "base_software_version": {
+        "name": "Base Software Version",
+        "unit": None,
+        "device_class": None,
+        "state_class": None,
+        "icon": "mdi:application",
+        "category": "SYSTEM",
+    },
+    "esp_software_part_number": {
+        "name": "ESP Software Part Number",
+        "unit": None,
+        "device_class": None,
+        "state_class": None,
+        "icon": "mdi:chip",
+        "category": "SYSTEM",
+    },
+    "regen_time_secs": {
+        "name": "Regeneration Time",
+        "unit": UnitOfTime.SECONDS,
+        "device_class": None,
+        "state_class": SensorStateClass.MEASUREMENT,
+        "icon": "mdi:timer-sand",
+        "category": "REGEN",
+    },
+    "system_error": {
+        "name": "System Error",
+        "unit": None,
+        "device_class": None,
+        "state_class": None,
+        "icon": "mdi:alert",
+        "category": "ALERTS",
+    },
+    "vacation_mode": {
+        "name": "Vacation Mode",
+        "unit": None,
+        "device_class": None,
+        "state_class": None,
+        "icon": "mdi:airplane",
+        "category": "BASIC",
+    },
 }
 
 
@@ -562,8 +667,19 @@ class HydroLinkSensor(CoordinatorEntity, SensorEntity):
                 
                 # Convert values that are provided in tenths
                 # API sends values like salt_level_tenths as 750 meaning 75.0%
-                if self._property_name.endswith("_tenths") and isinstance(value, (int, float)):
-                    return value / 10
+                # Also applies to iron_level_tenths_ppm, capacity_remaining_percent, etc.
+                if isinstance(value, (int, float)):
+                    # Handle properties with "_tenths" in the name (even if not at the end)
+                    if "_tenths" in self._property_name:
+                        return value / 10
+                    
+                    # capacity_remaining_percent is also in tenths
+                    if self._property_name == "capacity_remaining_percent":
+                        return value / 10
+                    
+                    # Salt values are provided in milligrams/thousandths, need to divide by 1000
+                    if self._property_name in ["avg_salt_per_regen_lbs", "total_salt_use_lbs"]:
+                        return value / 1000
                     
                 return value
         return None

@@ -56,6 +56,63 @@ def test_sensor_native_value(sensor):
     """Test sensor value retrieval."""
     assert sensor.native_value == MOCK_VALUE
 
+def test_sensor_tenths_conversion():
+    """Test that sensors ending in _tenths are divided by 10."""
+    coordinator = Mock()
+    coordinator.data = [
+        {
+            "id": MOCK_DEVICE_ID,
+            "properties": {
+                "salt_level_tenths": {"value": 750},
+                "iron_level_tenths_ppm": {"value": 25},
+                "tlc_avg_temp_tenths_c": {"value": 310},
+            }
+        }
+    ]
+    
+    salt_sensor = HydroLinkSensor(coordinator, MOCK_DEVICE_ID, "salt_level_tenths", MOCK_DEVICE_NAME)
+    assert salt_sensor.native_value == 75.0
+    
+    iron_sensor = HydroLinkSensor(coordinator, MOCK_DEVICE_ID, "iron_level_tenths_ppm", MOCK_DEVICE_NAME)
+    assert iron_sensor.native_value == 2.5
+    
+    temp_sensor = HydroLinkSensor(coordinator, MOCK_DEVICE_ID, "tlc_avg_temp_tenths_c", MOCK_DEVICE_NAME)
+    assert temp_sensor.native_value == 31.0
+
+def test_sensor_capacity_remaining_conversion():
+    """Test that capacity_remaining_percent is divided by 10."""
+    coordinator = Mock()
+    coordinator.data = [
+        {
+            "id": MOCK_DEVICE_ID,
+            "properties": {
+                "capacity_remaining_percent": {"value": 850},
+            }
+        }
+    ]
+    
+    sensor = HydroLinkSensor(coordinator, MOCK_DEVICE_ID, "capacity_remaining_percent", MOCK_DEVICE_NAME)
+    assert sensor.native_value == 85.0
+
+def test_sensor_salt_values_conversion():
+    """Test that salt values are divided by 1000 (API sends in milligrams)."""
+    coordinator = Mock()
+    coordinator.data = [
+        {
+            "id": MOCK_DEVICE_ID,
+            "properties": {
+                "avg_salt_per_regen_lbs": {"value": 6670},
+                "total_salt_use_lbs": {"value": 667000},
+            }
+        }
+    ]
+    
+    avg_sensor = HydroLinkSensor(coordinator, MOCK_DEVICE_ID, "avg_salt_per_regen_lbs", MOCK_DEVICE_NAME)
+    assert avg_sensor.native_value == 6.67
+    
+    total_sensor = HydroLinkSensor(coordinator, MOCK_DEVICE_ID, "total_salt_use_lbs", MOCK_DEVICE_NAME)
+    assert total_sensor.native_value == 667.0
+
 def test_sensor_attributes(sensor):
     """Test sensor attributes from descriptions."""
     description = SENSOR_DESCRIPTIONS.get(MOCK_PROPERTY)
