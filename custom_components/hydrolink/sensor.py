@@ -109,7 +109,7 @@ DEFAULT_ENABLED_SENSORS = {
     "treated_water_avail_gals",        # Available treated water in gallons
     
     # Salt Management
-    "salt_level_tenths",               # Current salt level in tenths
+    "salt_level_tenths",               # Current salt level in tenths (API value / 10 = %)
     "out_of_salt_estimate_days",       # Days until salt needed
     "avg_salt_per_regen_lbs",          # Average salt per regeneration (lbs)
     "total_salt_use_lbs",              # Total salt used (lbs)
@@ -276,6 +276,7 @@ SENSOR_DESCRIPTIONS = {
     },
 
     # SALT METRICS
+    # Note: salt_level_tenths is automatically divided by 10 (API sends 750 for 75%)
     "salt_level_tenths": {
         "name": "Salt Level",
         "unit": PERCENTAGE,
@@ -558,6 +559,11 @@ class HydroLinkSensor(CoordinatorEntity, SensorEntity):
                     SensorDeviceClass.TEMPERATURE
                 ]):
                     return None
+                
+                # Convert values that are provided in tenths
+                # API sends values like salt_level_tenths as 750 meaning 75.0%
+                if self._property_name.endswith("_tenths") and isinstance(value, (int, float)):
+                    return value / 10
                     
                 return value
         return None

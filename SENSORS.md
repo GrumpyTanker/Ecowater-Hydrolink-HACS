@@ -92,6 +92,8 @@ Comprehensive water flow and usage monitoring.
 
 Salt level monitoring and efficiency tracking.
 
+> **Technical Note**: The HydroLink API provides salt level in tenths (e.g., 750 = 75%). The integration automatically converts this to percentage by dividing by 10.
+
 | Sensor Name | Entity ID | Unit | Device Class | State Class | Description |
 |-------------|-----------|------|--------------|-------------|-------------|
 | **Salt Level** | `sensor.hydrolink_salt_level` | % | - | Measurement | Current salt reservoir level (0-100%) |
@@ -279,6 +281,21 @@ This enables:
 ---
 
 ## API Variable Mapping
+
+### Value Conversions
+
+The integration automatically performs the following conversions on raw API data:
+
+| Conversion Type | API Format | Displayed Format | Example |
+|----------------|------------|------------------|---------|
+| **Tenths to Decimal** | Any variable ending in `_tenths` | Value / 10 | API: `750` → Display: `75.0%` |
+| **Timestamp** | `current_time_secs` (Unix epoch) | Formatted datetime | API: `1633046400` → Display: `2021-10-01 00:00:00` |
+
+**Variables Affected**:
+- `salt_level_tenths`: Divided by 10 to convert tenths to percentage
+- `iron_level_tenths_ppm`: Divided by 10 (if present) to convert tenths to PPM
+
+This ensures that percentage values display correctly (0-100%) instead of as tenths (0-1000).
 
 ### Internal API Keys to Sensor Names
 
