@@ -96,6 +96,7 @@ class Device:
     system_type: str
     properties: Dict[str, Any]
 
+
 class HydroLinkApi:
     """HydroLink API interface.
 
@@ -105,20 +106,22 @@ class HydroLinkApi:
     Parameters:
         email (str): HydroLink account email
         password (str): HydroLink account password
+        region (str): HydroLink region domain (com or eu)
     """
 
-    BASE_URL = "https://api.hydrolinkhome.com/v1"
-    WS_BASE_URL = "wss://api.hydrolinkhome.com"
-
-    def __init__(self, email: str, password: str) -> None:
+    def __init__(self, email: str, password: str, region: str = "com") -> None:
         """Initialize the API.
 
         Args:
             email: The users HydroLink email
             password: The users HydroLink password
+            region: The region domain (com or eu), defaults to com
         """
         self.email: str = email
         self.password: str = password
+        self.region: str = region
+        self.base_url: str = f"https://api.hydrolinkhome.{region}/v1"
+        self.ws_base_url: str = f"wss://api.hydrolinkhome.{region}"
         self.auth_cookie: Optional[str] = None
         self.ws_message_count: int = 0
         self.waiting_for_ws_thread_to_end: int = 1
@@ -144,14 +147,11 @@ class HydroLinkApi:
         """
         try:
             response = requests.post(
-                f"{self.BASE_URL}/auth/login",
-                json={
-                    "email": self.email,
-                    "password": self.password
-                },
+                f"{self.base_url}/auth/login",
+                json={"email": self.email, "password": self.password},
                 timeout=10,
             )
-            
+
             # Check for specific error responses
             if response.status_code == 401:
                 raise InvalidAuth("Invalid email or password")
@@ -159,17 +159,17 @@ class HydroLinkApi:
                 raise CannotConnect("Rate limit exceeded")
             elif response.status_code >= 500:
                 raise CannotConnect(f"Server error: {response.status_code}")
-            
+
             response.raise_for_status()
-            
+
             # Get authentication cookie
             self.auth_cookie = response.cookies.get("hhfoffoezyzzoeibwv")
             if not self.auth_cookie:
                 raise CannotConnect("No authentication cookie received")
-            
+
             _LOGGER.info("HydroLink login successful")
             return True
-            
+
         except requests.Timeout:
             raise CannotConnect("Connection timed out") from None
         except requests.ConnectionError:
@@ -192,9 +192,10 @@ class HydroLinkApi:
             The web app closes the connection after 17 messages, so we follow
             the same pattern to maintain compatibility.
         """
+
         def on_message(ws: websocket.WebSocketApp, message: str) -> None:
             """Handle incoming WebSocket messages.
-            
+
             Args:
                 ws: The WebSocket connection instance.
                 message: The received message string.
@@ -202,42 +203,44 @@ class HydroLinkApi:
             try:
                 # Increment message counter
                 self.ws_message_count += 1
-                
+
                 # Parse and log message if in debug mode
                 if _LOGGER.isEnabledFor(logging.DEBUG):
                     data = json.loads(message)
                     _LOGGER.debug("Received WebSocket message: %s", data)
-                
+
                 # Close after receiving expected number of messages
                 if self.ws_message_count >= 17:
                     ws.close()
-                    
+
             except json.JSONDecodeError as err:
                 _LOGGER.warning("Failed to parse WebSocket message: %s", err)
 
         def on_open(ws: websocket.WebSocketApp) -> None:
             """Handle WebSocket connection open event.
-            
+
             Args:
                 ws: The WebSocket connection instance.
             """
             _LOGGER.debug("HydroLink WebSocket connection established")
 
-        def on_close(ws: websocket.WebSocketApp, close_status_code: int, 
-                    close_msg: str) -> None:
+        def on_close(
+            ws: websocket.WebSocketApp, close_status_code: int, close_msg: str
+        ) -> None:
             """Handle WebSocket connection close event.
-            
+
             Args:
                 ws: The WebSocket connection instance.
                 close_status_code: The WebSocket close status code.
                 close_msg: The close message if any.
             """
-            _LOGGER.debug("HydroLink WebSocket closed: %s %s", 
-                         close_status_code, close_msg)
+            _LOGGER.debug(
+                "HydroLink WebSocket closed: %s %s", close_status_code, close_msg
+            )
 
         def on_error(ws: websocket.WebSocketApp, error: Exception) -> None:
             """Handle WebSocket errors.
-            
+
             Args:
                 ws: The WebSocket connection instance.
                 error: The error that occurred.
@@ -247,7 +250,7 @@ class HydroLinkApi:
         try:
             # Reset message counter
             self.ws_message_count = 0
-            
+
             # Create and run WebSocket connection
             ws = websocket.WebSocketApp(
                 self.ws_uri,
@@ -257,11 +260,11 @@ class HydroLinkApi:
                 on_error=on_error,
             )
             ws.run_forever()
-            
+
         except Exception as err:
             _LOGGER.error("WebSocket connection failed: %s", err)
             raise CannotConnect("WebSocket connection failed") from err
-            
+
         finally:
             # Signal thread completion
             self.waiting_for_ws_thread_to_end = 0
@@ -302,17 +305,17 @@ class HydroLinkApi:
         try:
             # Get the list of devices
             response = requests.get(
-                f"{self.BASE_URL}/devices",
+                f"{self.base_url}/devices",
                 params={"all": "false", "per_page": "200"},
                 cookies={"hhfoffoezyzzoeibwv": self.auth_cookie},
                 timeout=10,
             )
-            
+
             # Handle authentication errors
             if response.status_code == 401:
                 self.auth_cookie = None
                 raise InvalidAuth("Authentication expired")
-                
+
             response.raise_for_status()
             devices = response.json().get("data", [])
 
@@ -326,7 +329,7 @@ class HydroLinkApi:
 
                     # Get the WebSocket URI for the device
                     response = requests.get(
-                        f"{self.BASE_URL}/devices/{device_id}/live",
+                        f"{self.base_url}/devices/{device_id}/live",
                         cookies={"hhfoffoezyzzoeibwv": self.auth_cookie},
                         timeout=10,
                     )
@@ -337,53 +340,52 @@ class HydroLinkApi:
                     if not ws_path:
                         _LOGGER.warning("No WebSocket URI for device %s", device_id)
                         continue
-                        
-                    self.ws_uri = f"{self.WS_BASE_URL}{ws_path}"
+
+                    self.ws_uri = f"{self.ws_base_url}{ws_path}"
                     self.waiting_for_ws_thread_to_end = 1
-                    
+
                     # Start WebSocket connection in separate thread
                     ws_thread = threading.Thread(
                         target=self._start_ws,
                         name=f"HydroLink-WS-{device_id}",
-                        daemon=True
+                        daemon=True,
                     )
                     ws_thread.start()
-                    
+
                     # Wait for WebSocket thread to complete
                     start_time = time.time()
                     while self.waiting_for_ws_thread_to_end:
                         time.sleep(0.5)
                         if time.time() - start_time > 15:
                             _LOGGER.warning(
-                                "WebSocket thread timeout for device %s",
-                                device_id
+                                "WebSocket thread timeout for device %s", device_id
                             )
                             break
-                    
+
                     # Ensure thread terminates
                     ws_thread.join(timeout=5)
                     if ws_thread.is_alive():
                         _LOGGER.warning(
                             "WebSocket thread did not terminate for device %s",
-                            device_id
+                            device_id,
                         )
 
                 except requests.RequestException as err:
                     _LOGGER.error(
                         "Error refreshing device %s: %s",
                         device.get("id", "unknown"),
-                        err
+                        err,
                     )
 
             # Fetch fresh data for all devices
             response = requests.get(
-                f"{self.BASE_URL}/devices",
+                f"{self.base_url}/devices",
                 params={"all": "false", "per_page": "200"},
                 cookies={"hhfoffoezyzzoeibwv": self.auth_cookie},
                 timeout=10,
             )
             response.raise_for_status()
-            
+
             return response.json().get("data", [])
 
         except requests.Timeout:
@@ -395,34 +397,34 @@ class HydroLinkApi:
 
     def trigger_regeneration(self, device_id: str) -> bool:
         """Trigger a manual regeneration for a specific device.
-        
+
         Args:
             device_id: The ID of the device to regenerate.
-            
+
         Returns:
             bool: True if regeneration was successfully triggered.
-            
+
         Raises:
             CannotConnect: If there is a connection error.
             InvalidAuth: If authentication has expired.
         """
         if not self.auth_cookie:
             self.login()
-            
+
         try:
             response = requests.post(
-                f"{self.BASE_URL}/devices/{device_id}/regenerate",
+                f"{self.base_url}/devices/{device_id}/regenerate",
                 cookies={"hhfoffoezyzzoeibwv": self.auth_cookie},
-                timeout=10
+                timeout=10,
             )
-            
+
             if response.status_code == 401:
                 self.auth_cookie = None
                 raise InvalidAuth("Authentication expired")
-                
+
             response.raise_for_status()
             return True
-            
+
         except requests.Timeout:
             raise CannotConnect("Connection timed out") from None
         except requests.ConnectionError:

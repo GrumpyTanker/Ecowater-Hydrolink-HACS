@@ -2,7 +2,7 @@
 """
 EcoWater HydroLink Data Update Coordinator
 
-Manages data synchronization and updates between the HydroLink cloud API and 
+Manages data synchronization and updates between the HydroLink cloud API and
 Home Assistant entities. Provides centralized data management with real-time
 WebSocket updates, intelligent polling, and comprehensive error handling.
 
@@ -15,7 +15,7 @@ Key Features:
 - Data validation and state management
 - Integration with Home Assistant's coordinator pattern
 
-This coordinator serves as the bridge between the HydroLink API and all 
+This coordinator serves as the bridge between the HydroLink API and all
 sensor entities, ensuring consistent data flow and optimal performance
 while minimizing API calls and respecting rate limits.
 
@@ -30,20 +30,20 @@ Version History:
   * Code quality and standards improvements
   * Better error handling patterns
   * Comprehensive testing coverage
-  
+
 - 1.0.0 (2025-10-03)
   * Production release with enhanced stability
   * Improved error handling and recovery
   * Optimized update intervals and API efficiency
   * Enhanced logging and diagnostic capabilities
   * Better integration with Home Assistant lifecycle
-  
+
 - 0.2.0 (2025-10-02)
   * Added WebSocket support for real-time updates
   * Improved error handling and retry logic
   * Added comprehensive type hints
   * Enhanced data validation and processing
-  
+
 - 0.1.0 (2025-06-12)
   * Initial release with basic coordination
   * Polling implementation and data management
@@ -60,7 +60,7 @@ from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, Upda
 from homeassistant.const import CONF_EMAIL, CONF_PASSWORD
 
 from .api import HydroLinkApi, CannotConnect, InvalidAuth
-from .const import DOMAIN
+from .const import DOMAIN, CONF_REGION, REGION_US
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -78,6 +78,7 @@ class HydroLinkDataUpdateCoordinator(DataUpdateCoordinator):
         self.api = HydroLinkApi(
             entry.data[CONF_EMAIL],
             entry.data[CONF_PASSWORD],
+            entry.data.get(CONF_REGION, REGION_US),
         )
         # Initialize the DataUpdateCoordinator
         super().__init__(

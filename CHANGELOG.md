@@ -5,6 +5,20 @@ All notable changes to the EcoWater HydroLink Home Assistant integration will be
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- **EU Region Support**: Users can now select between United States (.com) and Europe (.eu) domains during setup
+  - Added region selector in configuration flow
+  - Added support for https://app.hydrolinkhome.eu/ domain
+  - Region selection defaults to United States for backward compatibility
+- Enhanced test coverage with region-specific tests (16 tests now passing)
+
+### Changed
+- Configuration flow now includes a "Region" dropdown selector
+- API client now dynamically constructs URLs based on selected region
+- Improved API initialization to support multiple regional endpoints
+
 ## [1.2.1] - 2025-10-10
 
 ### Fixed
