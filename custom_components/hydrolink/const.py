@@ -13,7 +13,7 @@ Changelog:
 - 0.1.0 (2025-06-12)
   * Initial release
   * Basic constants defined
-  
+
 - 0.2.0 (2025-10-02)
   * Added service constants
   * Added platform definitions
@@ -34,3 +34,11 @@ PLATFORMS = ["sensor"]
 
 # Services
 SERVICE_TRIGGER_REGENERATION = "trigger_regeneration"
+
+# Configuration keys
+CONF_REGION = "region"
+
+# Available regions
+REGION_US = "com"
+REGION_EU = "eu"
+REGIONS = {REGION_US: "United States (.com)", REGION_EU: "Europe (.eu)"}
