@@ -564,6 +564,11 @@ class HydroLinkSensor(CoordinatorEntity, SensorEntity):
                 # API sends values like salt_level_tenths as 750 meaning 75.0%
                 if self._property_name.endswith("_tenths") and isinstance(value, (int, float)):
                     return value / 10
+                
+                # Special case: avg_salt_per_regen_lbs uses different unit scale
+                # API provides value in thousandths (6000 = 6 lbs)
+                if self._property_name == "avg_salt_per_regen_lbs" and isinstance(value, (int, float)):
+                    return value / 1000
                     
                 return value
         return None
