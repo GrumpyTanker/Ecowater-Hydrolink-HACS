@@ -2,7 +2,7 @@
 from unittest.mock import AsyncMock, Mock, patch
 import pytest
 from homeassistant import config_entries, data_entry_flow
-from custom_components.hydrolink.const import DOMAIN
+from custom_components.hydrolink.const import DOMAIN, CONF_REGION, REGION_US
 from custom_components.hydrolink.config_flow import ConfigFlow
 from custom_components.hydrolink.api import CannotConnect, InvalidAuth
 from tests.helpers import create_mock_hass
@@ -10,6 +10,7 @@ from tests.helpers import create_mock_hass
 # Test data
 MOCK_EMAIL = "test@example.com"
 MOCK_PASSWORD = "password123"
+MOCK_REGION = REGION_US
 
 def setup_mock_flow():
     """Set up a config flow with mocked hass instance."""
@@ -79,17 +80,20 @@ async def test_successful_config_flow():
         result = await flow.async_step_user({
             "email": MOCK_EMAIL,
             "password": MOCK_PASSWORD,
+            "region": MOCK_REGION,
         })
         
     assert result["type"] == data_entry_flow.FlowResultType.CREATE_ENTRY
     assert result["data"] == {
         "email": MOCK_EMAIL,
         "password": MOCK_PASSWORD,
+        "region": MOCK_REGION,
     }
     assert result["title"] == MOCK_EMAIL
     assert result["data"] == {
         "email": MOCK_EMAIL,
         "password": MOCK_PASSWORD,
+        "region": MOCK_REGION,
     }
 
 @pytest.mark.asyncio
@@ -109,6 +113,7 @@ async def test_failed_config_flow_invalid_auth():
         result = await flow.async_step_user({
             "email": MOCK_EMAIL,
             "password": MOCK_PASSWORD,
+            "region": MOCK_REGION,
         })
         
     assert result["type"] == data_entry_flow.FlowResultType.FORM
@@ -131,7 +136,39 @@ async def test_failed_config_flow_cannot_connect():
         result = await flow.async_step_user({
             "email": MOCK_EMAIL,
             "password": MOCK_PASSWORD,
+            "region": MOCK_REGION,
         })
         
     assert result["type"] == data_entry_flow.FlowResultType.FORM
     assert result["errors"] == {"base": "cannot_connect"}
+
+@pytest.mark.asyncio
+async def test_config_flow_with_eu_region():
+    """Test config flow with EU region."""
+    flow = setup_mock_flow()
+    
+    # Mock async_set_unique_id to return None
+    mock_set_unique_id = AsyncMock(return_value=None)
+    flow.async_set_unique_id = mock_set_unique_id
+    
+    # Mock _abort_if_unique_id_configured to do nothing
+    flow._abort_if_unique_id_configured = Mock()
+    
+    with patch(
+        "custom_components.hydrolink.api.HydroLinkApi.login",
+        return_value=True,
+    ):
+        # Submit the form with EU region
+        result = await flow.async_step_user({
+            "email": MOCK_EMAIL,
+            "password": MOCK_PASSWORD,
+            "region": "eu",
+        })
+        
+    assert result["type"] == data_entry_flow.FlowResultType.CREATE_ENTRY
+    assert result["data"] == {
+        "email": MOCK_EMAIL,
+        "password": MOCK_PASSWORD,
+        "region": "eu",
+    }
+    assert result["title"] == MOCK_EMAIL

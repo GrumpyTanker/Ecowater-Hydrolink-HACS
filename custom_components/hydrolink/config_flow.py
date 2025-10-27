@@ -35,17 +35,17 @@ Version History:
   * Improved error handling and user guidance
   * Better validation and connectivity testing
   * Enhanced security and credential management
-  
+
 - 0.2.1 (2025-10-02)
   * Fixed error handling in configuration flow
   * Improved validation feedback and messaging
-  
+
 - 0.2.0 (2025-10-02)
   * Added comprehensive input validation
   * Enhanced error handling and user feedback
   * Added re-authentication support
   * Comprehensive type hints and documentation
-  
+
 - 0.1.0 (2025-06-12)
   * Initial release with basic configuration flow
   * User authentication and setup foundation
@@ -61,7 +61,7 @@ from homeassistant import config_entries
 from homeassistant.const import CONF_EMAIL, CONF_PASSWORD
 import homeassistant.helpers.config_validation as cv
 
-from .const import DOMAIN
+from .const import DOMAIN, CONF_REGION, REGION_US, REGIONS
 from .api import HydroLinkApi, CannotConnect, InvalidAuth
 
 _LOGGER = logging.getLogger(__name__)
@@ -71,13 +71,14 @@ DATA_SCHEMA = vol.Schema(
     {
         vol.Required(CONF_EMAIL): cv.string,
         vol.Required(CONF_PASSWORD): cv.string,
+        vol.Required(CONF_REGION, default=REGION_US): vol.In(REGIONS),
     }
 )
 
 
 class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
     """Handle a config flow for HydroLink."""
-    
+
     VERSION = 1
     DOMAIN = DOMAIN
     CONNECTION_CLASS = config_entries.CONN_CLASS_CLOUD_POLL
@@ -109,8 +110,12 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
 
             try:
                 # Create an API instance and attempt to log in
-                api = HydroLinkApi(user_input[CONF_EMAIL], user_input[CONF_PASSWORD])
-                
+                api = HydroLinkApi(
+                    user_input[CONF_EMAIL],
+                    user_input[CONF_PASSWORD],
+                    user_input.get(CONF_REGION, REGION_US),
+                )
+
                 # Wrap in try-except to handle API exceptions
                 try:
                     # Note: login may raise InvalidAuth or CannotConnect
@@ -121,17 +126,16 @@ class ConfigFlow(config_entries.ConfigFlow, domain=DOMAIN):
                 except Exception as err:
                     _LOGGER.exception("Unexpected API error")
                     raise CannotConnect from err
-                
+
                 # Only proceed if login was successful
                 await self.async_set_unique_id(user_input[CONF_EMAIL])
                 self._abort_if_unique_id_configured()
-                
+
                 # Create the config entry
                 return self.async_create_entry(
-                    title=user_input[CONF_EMAIL],
-                    data=user_input
+                    title=user_input[CONF_EMAIL], data=user_input
                 )
-                
+
             except InvalidAuth:
                 errors["base"] = "invalid_auth"
             except CannotConnect:

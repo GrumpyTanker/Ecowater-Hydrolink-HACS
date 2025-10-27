@@ -73,7 +73,10 @@ This integration is a HACS-compatible adaptation of the original [Hydrolink-Home
 2. Click "Add Integration"
 3. Search for "HydroLink"
 4. Enter your HydroLink email and password
-5. Click "Submit"
+5. Select your region:
+   - **United States (.com)** - For US-based HydroLink accounts
+   - **Europe (.eu)** - For EU-based HydroLink accounts
+6. Click "Submit"
 
 ## Available Sensors
 

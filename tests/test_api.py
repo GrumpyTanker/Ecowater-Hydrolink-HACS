@@ -21,7 +21,7 @@ MOCK_DEVICE_ID = "test-device-id"
 @pytest.fixture
 def api():
     """Create a HydroLinkApi instance for testing."""
-    return HydroLinkApi(MOCK_EMAIL, MOCK_PASSWORD)
+    return HydroLinkApi(MOCK_EMAIL, MOCK_PASSWORD, "com")
 
 @pytest.fixture
 def mock_response():
@@ -148,3 +148,24 @@ def test_websocket_message_handling(api):
 
         # Wait for thread to finish
         ws_thread.join(timeout=1)
+
+def test_api_region_com():
+    """Test API initialization with .com region."""
+    api = HydroLinkApi(MOCK_EMAIL, MOCK_PASSWORD, "com")
+    assert api.region == "com"
+    assert api.base_url == "https://api.hydrolinkhome.com/v1"
+    assert api.ws_base_url == "wss://api.hydrolinkhome.com"
+
+def test_api_region_eu():
+    """Test API initialization with .eu region."""
+    api = HydroLinkApi(MOCK_EMAIL, MOCK_PASSWORD, "eu")
+    assert api.region == "eu"
+    assert api.base_url == "https://api.hydrolinkhome.eu/v1"
+    assert api.ws_base_url == "wss://api.hydrolinkhome.eu"
+
+def test_api_default_region():
+    """Test API initialization with default region."""
+    api = HydroLinkApi(MOCK_EMAIL, MOCK_PASSWORD)
+    assert api.region == "com"
+    assert api.base_url == "https://api.hydrolinkhome.com/v1"
+    assert api.ws_base_url == "wss://api.hydrolinkhome.com"
