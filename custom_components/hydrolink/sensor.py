@@ -15,6 +15,8 @@ Key Features:
 - Device health and connectivity monitoring
 - Standardized imperial units (gallons, GPM, pounds, grains)
 - Proper Home Assistant entity categorization and device classes
+- Automatic sensor discovery - all API properties are exposed as sensors
+- Sensors can be enabled/disabled individually in Home Assistant UI
 
 Sensor Categories:
 1. Basic System Information - Device status, model, identifiers
@@ -627,19 +629,33 @@ SENSOR_DESCRIPTIONS = {
 
 async def async_setup_entry(hass, entry, async_add_entities):
     """Set up the HydroLink sensors from a config entry."""
+    import logging
+    _LOGGER = logging.getLogger(__name__)
+    
     coordinator = hass.data[DOMAIN][entry.entry_id]
     entities = []
+    
     for device in coordinator.data:
         # Assuming 'demand_softener' is the target device type
         if device.get("system_type") != "demand_softener":
             continue
 
         device_name = device.get("nickname", "EcoWater Softener")
+        
+        # Log all available properties from API for debugging
+        available_props = list(device.get("properties", {}).keys())
+        _LOGGER.info(
+            "HydroLink device '%s' has %d properties available from API: %s",
+            device_name,
+            len(available_props),
+            ", ".join(sorted(available_props))
+        )
 
         for prop_name, prop_info in device.get("properties", {}).items():
             if isinstance(prop_info, dict) and "value" in prop_info:
                 entities.append(HydroLinkSensor(coordinator, device["id"], prop_name, device_name))
 
+    _LOGGER.info("Created %d HydroLink sensor entities", len(entities))
     async_add_entities(entities)
 
 
