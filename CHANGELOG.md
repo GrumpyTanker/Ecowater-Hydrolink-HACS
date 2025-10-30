@@ -5,6 +5,48 @@ All notable changes to the EcoWater HydroLink Home Assistant integration will be
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.2] - 2025-10-10
+
+### Fixed
+- **CRITICAL**: Fixed multiple sensor scaling issues
+  - `capacity_remaining_percent`: Now correctly divides by 10 (was showing 850 instead of 85%)
+  - `avg_salt_per_regen_lbs`: Now correctly divides by 1000 (was showing mg instead of lbs)
+  - `total_salt_use_lbs`: Now correctly divides by 1000 (was showing mg instead of lbs)
+  - Fixed sensors with `_tenths` anywhere in name (not just at end), including `iron_level_tenths_ppm` and `tlc_avg_temp_tenths_c`
+
+### Added
+- **NEW SENSORS**: Added 15 additional sensor definitions that were available in API but not exposed:
+  - `iron_level_tenths_ppm`: Iron level in parts per million
+  - `tlc_avg_temp_tenths_c`: TLC average temperature in Celsius
+  - `salt_effic_grains_per_lb`: Salt efficiency metric
+  - `salt_type_enum`: Salt type indicator
+  - `water_counter_gals`: Water counter in gallons
+  - `error_code`: Numeric error code
+  - `service_active`: Service mode status
+  - `time_lost_events`: Power outage/time lost event counter
+  - `product_serial_number`: Device serial number
+  - `location`: Device location
+  - `system_type`: System type identifier
+  - `model_display_code`: Model display code
+  - `base_software_version`: Base software version
+  - `esp_software_part_number`: ESP software part number
+  - `regen_time_secs`: Regeneration time in seconds
+- Comprehensive test coverage for all scaling conversions
+
+### Changed
+- Enhanced `HydroLinkSensor.native_value` to handle three conversion types:
+  1. Tenths conversion (÷10) for any property with `_tenths` in name
+  2. Capacity conversion (÷10) for `capacity_remaining_percent`
+  3. Salt conversion (÷1000) for salt mass values
+- Removed duplicate sensor definitions that were causing conflicts
+
+### Documentation
+- Updated SENSORS.md with comprehensive conversion documentation
+- Added tables showing all affected variables and their conversions
+- Documented new sensors with units, device classes, and descriptions
+
+**Impact**: High - Critical fix for incorrect sensor readings, enables access to all API data
+
 ## [1.2.1] - 2025-10-10
 
 ### Fixed

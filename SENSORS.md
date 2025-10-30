@@ -288,14 +288,22 @@ The integration automatically performs the following conversions on raw API data
 
 | Conversion Type | API Format | Displayed Format | Example |
 |----------------|------------|------------------|---------|
-| **Tenths to Decimal** | Any variable ending in `_tenths` | Value / 10 | API: `750` → Display: `75.0%` |
+| **Tenths to Decimal** | Any variable containing `_tenths` | Value / 10 | API: `750` → Display: `75.0%` |
+| **Capacity Percent** | `capacity_remaining_percent` | Value / 10 | API: `850` → Display: `85.0%` |
+| **Salt Values** | `avg_salt_per_regen_lbs`, `total_salt_use_lbs` | Value / 1000 | API: `6670` → Display: `6.67 lbs` |
 | **Timestamp** | `current_time_secs` (Unix epoch) | Formatted datetime | API: `1633046400` → Display: `2021-10-01 00:00:00` |
 
-**Variables Affected**:
-- `salt_level_tenths`: Divided by 10 to convert tenths to percentage
-- `iron_level_tenths_ppm`: Divided by 10 (if present) to convert tenths to PPM
+**Variables Affected by Tenths Conversion (÷10)**:
+- `salt_level_tenths`: Tenths to percentage (e.g., 750 → 75.0%)
+- `iron_level_tenths_ppm`: Tenths PPM to PPM (e.g., 25 → 2.5 ppm)
+- `tlc_avg_temp_tenths_c`: Tenths Celsius to Celsius (e.g., 310 → 31.0°C)
+- `capacity_remaining_percent`: Tenths to percentage (e.g., 850 → 85.0%)
 
-This ensures that percentage values display correctly (0-100%) instead of as tenths (0-1000).
+**Variables Affected by Salt Conversion (÷1000)**:
+- `avg_salt_per_regen_lbs`: Milligrams to pounds (e.g., 6670 → 6.67 lbs)
+- `total_salt_use_lbs`: Milligrams to pounds (e.g., 667000 → 667.0 lbs)
+
+This ensures that values display correctly in their expected units.
 
 ### Internal API Keys to Sensor Names
 
