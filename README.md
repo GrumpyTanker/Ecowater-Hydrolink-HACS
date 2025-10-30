@@ -77,7 +77,8 @@ This integration is a HACS-compatible adaptation of the original [Hydrolink-Home
 
 ## Available Sensors
 
-📋 **For complete sensor documentation, see [SENSORS.md](SENSORS.md)**
+📋 **For complete sensor documentation, see [SENSORS.md](SENSORS.md)**  
+🔍 **For data verification and live sensor testing, see [SENSOR_VERIFICATION.md](SENSOR_VERIFICATION.md)**
 
 The integration **automatically discovers all available sensors** from your HydroLink API. All properties are exposed as sensors (typically 40+ sensors), and you can enable/disable individual sensors through the Home Assistant UI:
 - Go to Settings → Devices & Services → HydroLink → Entities
