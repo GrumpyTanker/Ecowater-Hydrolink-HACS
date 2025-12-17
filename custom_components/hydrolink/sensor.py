@@ -697,10 +697,12 @@ class HydroLinkSensor(CoordinatorEntity, SensorEntity):
 
                 # Handle timestamp conversion for TIMESTAMP device class
                 # Convert Unix timestamp (seconds since epoch) to timezone-aware datetime
+                # Note: Only accepts positive timestamps (after Unix epoch 1970-01-01)
+                # Water softener devices don't report timestamps before this date
                 if self.device_class == SensorDeviceClass.TIMESTAMP and isinstance(
                     value, (int, float)
                 ):
-                    if value > 0:  # Only convert valid timestamps
+                    if value > 0:  # Only convert valid positive timestamps
                         return datetime.fromtimestamp(value, tz=timezone.utc)
                     return None
 

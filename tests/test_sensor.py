@@ -159,7 +159,6 @@ def test_sensor_default_enabled(sensor):
 def test_sensor_timestamp_conversion():
     """Test that timestamp sensors convert Unix timestamp to datetime."""
     from datetime import datetime, timezone
-    from homeassistant.components.sensor import SensorDeviceClass
 
     coordinator = Mock()
     coordinator.data = [
@@ -185,8 +184,6 @@ def test_sensor_timestamp_conversion():
 
 def test_sensor_timestamp_invalid():
     """Test that invalid timestamp values return None."""
-    from homeassistant.components.sensor import SensorDeviceClass
-
     coordinator = Mock()
     coordinator.data = [
         {
@@ -205,8 +202,6 @@ def test_sensor_timestamp_invalid():
 
 def test_sensor_timestamp_negative():
     """Test that negative timestamp values return None."""
-    from homeassistant.components.sensor import SensorDeviceClass
-
     coordinator = Mock()
     coordinator.data = [
         {
