@@ -5,6 +5,16 @@ All notable changes to the EcoWater HydroLink Home Assistant integration will be
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.3] - 2025-12-17
+
+### Fixed
+- **Energy Dashboard Support**: Added `device_class: water` to all water volume sensors
+  - Sensors now properly appear in Home Assistant's Energy Dashboard water tracking
+  - Affected sensors: `gallons_used_today`, `avg_daily_use_gals`, `total_outlet_water_gals`, `treated_water_avail_gals`, `water_counter_gals`
+  - Sensors with `state_class: total_increasing` are now compatible with long-term statistics
+
+**Impact**: Medium - Enables water consumption tracking in Energy Dashboard
+
 ## [1.2.2] - 2025-10-10
 
 ### Fixed

@@ -230,7 +230,7 @@ SENSOR_DESCRIPTIONS = {
     "gallons_used_today": {
         "name": "Water Used Today",
         "unit": UnitOfVolume.GALLONS,
-        "device_class": None,
+        "device_class": SensorDeviceClass.WATER,
         "state_class": SensorStateClass.TOTAL_INCREASING,
         "icon": "mdi:water",
         "category": "WATER",
@@ -238,7 +238,7 @@ SENSOR_DESCRIPTIONS = {
     "avg_daily_use_gals": {
         "name": "Average Daily Water Usage",
         "unit": UnitOfVolume.GALLONS,
-        "device_class": None,
+        "device_class": SensorDeviceClass.WATER,
         "state_class": SensorStateClass.MEASUREMENT,
         "icon": "mdi:chart-timeline-variant",
         "category": "WATER",
@@ -246,7 +246,7 @@ SENSOR_DESCRIPTIONS = {
     "total_outlet_water_gals": {
         "name": "Total Treated Water",
         "unit": UnitOfVolume.GALLONS,
-        "device_class": None,
+        "device_class": SensorDeviceClass.WATER,
         "state_class": SensorStateClass.TOTAL_INCREASING,
         "icon": "mdi:meter-water",
         "category": "WATER",
@@ -262,7 +262,7 @@ SENSOR_DESCRIPTIONS = {
     "treated_water_avail_gals": {
         "name": "Available Treated Water",
         "unit": UnitOfVolume.GALLONS,
-        "device_class": None,
+        "device_class": SensorDeviceClass.WATER,
         "state_class": SensorStateClass.MEASUREMENT,
         "icon": "mdi:water-check",
         "category": "WATER",
@@ -523,7 +523,7 @@ SENSOR_DESCRIPTIONS = {
     "water_counter_gals": {
         "name": "Water Counter",
         "unit": UnitOfVolume.GALLONS,
-        "device_class": None,
+        "device_class": SensorDeviceClass.WATER,
         "state_class": SensorStateClass.TOTAL_INCREASING,
         "icon": "mdi:counter",
         "category": "WATER",
