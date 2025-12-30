@@ -2,15 +2,15 @@
 
 [![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg)](https://github.com/hacs/integration)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Validate](https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS/workflows/Validate/badge.svg)](https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS/actions)
-[![Run Tests](https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS/workflows/Run%20Tests/badge.svg)](https://github.com/GrumpyTanker/Ecowater-Hydrolink-HACS/actions)
+[![Validate](https://github.com/GrumpyTanker/Ecowater-Hydrolink/workflows/Validate/badge.svg)](https://github.com/GrumpyTanker/Ecowater-Hydrolink/actions)
+[![Run Tests](https://github.com/GrumpyTanker/Ecowater-Hydrolink/workflows/Run%20Tests/badge.svg)](https://github.com/GrumpyTanker/Ecowater-Hydrolink/actions)
 [![HA Core Version](https://img.shields.io/badge/Home%20Assistant-2024.10.0+-blue.svg)](https://www.home-assistant.io)
 [![Code Style: Black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Python Version](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org)
 
-A Home Assistant integration for EcoWater's HydroLink connected water softeners. Monitor your water softener's performance, water usage, salt levels, and more directly in Home Assistant with real-time updates.
+A Home Assistant integration for EcoWater's HydroLink connected water softeners. Monitor your water softener's performance, water usage, salt levels, and more directly in Home Assistant with real-time updates and comprehensive analytics.
 
-This integration is a HACS-compatible adaptation of the original [Hydrolink-Home-Status](https://github.com/GrumpyTanker/Hydrolink-Home-Status) project, enhanced with improved data organization, real-time WebSocket updates, comprehensive error handling, and full Home Assistant integration.
+This integration is a Home Assistant custom component adapted from the original [Hydrolink-Home-Status](https://github.com/GrumpyTanker/Hydrolink-Home-Status) project, enhanced with improved data organization, reliability, and Home Assistant best practices.
 
 ## Key Features
 
@@ -80,7 +80,7 @@ This integration is a HACS-compatible adaptation of the original [Hydrolink-Home
 📋 **For complete sensor documentation, see [SENSORS.md](SENSORS.md)**  
 🔍 **For data verification and live sensor testing, see [SENSOR_VERIFICATION.md](SENSOR_VERIFICATION.md)**
 
-The integration **automatically discovers all available sensors** from your HydroLink API. All properties are exposed as sensors (typically 40+ sensors), and you can enable/disable individual sensors through the Home Assistant UI:
+The integration **automatically discovers all available sensors** from your HydroLink API. All properties are exposed as sensors (typically 40+ sensors), and you can enable/disable individual sensors based on your needs:
 - Go to Settings → Devices & Services → HydroLink → Entities
 - Click on any sensor to enable/disable it
 - Sensors marked with "Default Enabled" are enabled automatically
@@ -245,5 +245,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Trademark Legal Notice
 
-This project is not affiliated with, endorsed by, or connected to EcoWater Systems LLC. EcoWater, HydroLink, and any related logos are trademarks of EcoWater Systems LLC. These trademarks are used for reference only.
+This project is not affiliated with, endorsed by, or connected to EcoWater Systems LLC. EcoWater, HydroLink, and any related logos are trademarks of EcoWater Systems LLC. These trademarks are used solely for the purpose of identifying compatibility with EcoWater products. All trademarks are the property of their respective owners.
 - Thanks to the Home Assistant community for their support and feedback
